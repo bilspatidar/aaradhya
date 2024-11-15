@@ -99,35 +99,9 @@ defined('SMTP_PASSWORD')       OR define('SMTP_PASSWORD', '');//password
 ****/
 
 
-define('RAZOR_KEY_ID','rzp_test_qPUq1WuYyKrLFq');
-define('RAZOR_KEY_SECRET','CKFaIu9VhG3GC76E5kLgMT83');
-	
 
-
-// define('RAZOR_KEY_ID','rzp_live_m13E5Ds7X1t6A6');
-// define('RAZOR_KEY_SECRET','FkXtXKDc9pxlExfbBGKoFVQW');
-define('WP_BALANCE',1000);
-define('WinpriceMul',7);
-define('REFERAMT',50);
-define('WELCOMEBONUS',50);
-
-
-//PayUMoney Configurations
-define('MERCHANT_KEY', 'pvKnwsxh'); //rjQUPktU (test) , pvKnwsxh(live)
-define('SALT', 'xHfAKkAxzE'); //e5iIg1jwi8 (test) ,xHfAKkAxzE(live)
-// define('PAYU_BASE_URL', 'https://test.payu.in/_payment');    //Testing url 
- define('PAYU_BASE_URL', 'https://secure.payu.in/_payment');  //actual URL
-
-
-define('GOOGLE_CLIENT_ID','1055328938764-c4l90e79rref7d2r7k8934lsfk2baamh.apps.googleusercontent.com');    //add complete url 
-define('GOOGLE_CLIENT_SALT','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');    //add complete url 
-
-define('YOUTUBE_API_KEY','AIzaSyA_f-h_wY-3d0lZ7oMxrsYF9wKaxrycxA0');    //GET YOUTUBE DATA API KEY
-define('YOUTUBE_CHANNEL_ID','UCEGn98XMC2mFsPNznBMEs1w'); //GET YOUTUBE DATA CHANNEL ID
-
-
-define('BRAND_NAME','ARQAA'); 
-define('BRAND_TITLE','ARQAA');
+define('BRAND_NAME','AARADHYA'); 
+define('BRAND_TITLE','AARADHYA');
 
 define('ADMIN_EMAIL','bils@gmail.in'); 
 define('CONTACT_SUBJECT','You have new contact enquiry.'); 
@@ -144,4 +118,4 @@ define('VOUCHER_SRNO','10000');
 define('GST_SRNO','10000');
 define('ROW_PER_PAGE',2);
 //define('API_DOMAIN','http://localhost/new/');
-define('API_DOMAIN', 'https://new.arqaa.nl/');
+define('API_DOMAIN', 'https://aaradhya.softdemo.tech/');

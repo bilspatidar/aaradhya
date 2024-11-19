@@ -44,17 +44,7 @@ class Branch extends REST_Controller {
     }
  
 
- public function branch_list_post00($id='') {
-	 
-	 
-        $getTokenData = $this->is_authorized('superadmin');
-		$filterData = json_decode($this->input->raw_input_stream, true);
-        $final = array();
-        $final['status'] = true;
-        $final['data'] = $this->branch_model->get_branch($id, $filterData);
-        $final['message'] = 'Site fetched successfully.';
-        $this->response($final, REST_Controller::HTTP_OK); 
-    }
+
     public function branch_details_get(){
         $id = $this->input->get('id') ? $this->input->get('id') : 0;
         $getTokenData = $this->is_authorized('superadmin');
@@ -76,7 +66,7 @@ class Branch extends REST_Controller {
             // print_r ($getTokenData);
             // exit();
             // set validation rules
-            $this->form_validation->set_rules('name', 'Site Name', 'trim|required|xss_clean|alpha_numeric_spaces');
+            $this->form_validation->set_rules('name', 'Name', 'trim|required|xss_clean|alpha_numeric_spaces');
 
             if ($this->form_validation->run() === false) {
                 $array_error = array_map(function ($val) {
@@ -95,14 +85,14 @@ class Branch extends REST_Controller {
                     $data['name'] = $name;
                 }
 				$data['branch_phone'] = $this->input->post('branch_phone',TRUE);
-                $data['side_code'] = $this->input->post('side_code',TRUE);
+                $data['branch_code'] = $this->input->post('branch_code',TRUE);
 				$data['branch_email'] = $this->input->post('branch_email',TRUE);
 				$data['branch_address'] = $this->input->post('branch_address',TRUE);
 				$data['branch_location'] = $this->input->post('branch_location',TRUE);
-				$city = $this->input->post('city',TRUE);
-                if (!empty($city)) {
-                $data['city'] = $city;
-                }
+				// $city = $this->input->post('city',TRUE);
+                // if (!empty($city)) {
+                // $data['city'] = $city;
+                // }
                 $data['lang'] = $this->input->post('lang',TRUE);
                 $data['latt'] = $this->input->post('latt',TRUE);
                 $data['country_id'] = $this->input->post('country_id',TRUE);
@@ -173,12 +163,12 @@ class Branch extends REST_Controller {
                 if (!empty($name)) {
                     $data['name'] = $name;
                 }
-                $city = $this->input->post('city',TRUE);
-                if (!empty($city)) {
-                    $data['city'] = $city;
-                }
+                // $city = $this->input->post('city',TRUE);
+                // if (!empty($city)) {
+                //     $data['city'] = $city;
+                // }
 				$data['branch_phone'] = $this->input->post('branch_phone',TRUE);
-                $data['side_code'] = $this->input->post('side_code',TRUE);
+                $data['branch_code'] = $this->input->post('branch_code',TRUE);
 				$data['branch_email'] = $this->input->post('branch_email',TRUE);
 				$data['branch_address'] = $this->input->post('branch_address',TRUE);
 				$data['branch_location'] = $this->input->post('branch_location',TRUE);

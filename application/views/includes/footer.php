@@ -526,6 +526,33 @@ function getStates(country_id) {
         $('#state_id').html('<option value=""><?php echo $this->lang->line('select_option'); ?></option>');
     }
 }
+function getCity(state_id) {
+    if (state_id) {
+        // Trigger AJAX request to get cities based on the selected state
+        $.ajax({
+            url: "<?php echo base_url('Common_controller/get_cities_by_state'); ?>", // Your PHP function URL
+            type: "POST",
+            data: { state_id: state_id },
+            success: function(response) {
+                // Check if the response is not empty
+                if (response) {
+                    // Populate the city dropdown with the response (HTML options)
+                    $('#city_id').html(response); 
+                } else {
+                    // If no cities found, clear the city dropdown
+                    $('#city_id').html('<option value=""><?php echo $this->lang->line('no_cities_found'); ?></option>');
+                }
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                // Alert in case of error
+                alert('Error fetching cities: ' + textStatus + ' ' + errorThrown);
+            }
+        });
+    } else {
+        // Reset city dropdown if no state is selected
+        $('#city_id').html('<option value=""><?php echo $this->lang->line('select_option'); ?></option>');
+    }
+}
 
 
 </script>

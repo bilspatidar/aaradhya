@@ -13,7 +13,7 @@
               <div class="form-group row">
                 <div class="col-sm-12">
                   <label class="col-form-label"><?php echo $this->lang->line('name');?></label>
-                  <input type="text" class="form-control" name="name" />
+                  <input type="text" class="form-control" name="first_name" />
                 </div>
               </div>
             </div>
@@ -29,16 +29,69 @@
             <div class="col-md-4">
               <div class="form-group row">
                 <div class="col-sm-12">
-                  <label class="col-form-label"><?php echo $this->lang->line('date_of_birth');?></label>
-                  <input data-provide="datepicker" name="date_of_birth" data-date-autoclose="true" class="form-control">
+                  <label class="col-form-label"><?php echo $this->lang->line('employee_code');?></label>
+                  <input type="text" class="form-control" name="employee_code" />
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group row">
+                <div class="col-sm-12">
+                  <label class="col-form-label"><?php echo $this->lang->line('dob');?></label>
+                  <input data-provide="datepicker" name="dob" data-date-autoclose="true" class="form-control">
 
                 </div>
               </div>
             </div>
-
             <div class="col-md-4">
-    <div class="form-group row">
-        <div class="col-sm-12">
+              <div class="form-group row">
+                <div class="col-sm-12">
+                  <label class="col-form-label"><?php echo $this->lang->line('doj');?></label>
+                  <input data-provide="datepicker" name="doj" data-date-autoclose="true" class="form-control">
+
+                </div>
+              </div>
+            </div>
+            
+            <div class="col-md-4">
+              <div class="form-group row">
+                <div class="col-sm-12">
+                  <label class="col-form-label"><?php echo $this->lang->line('location');?></label>
+                  <input type="text" class="form-control" name="location" />
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group row">
+                <div class="col-sm-12">
+                  <label class="col-form-label"><?php echo $this->lang->line('profile_pic');?></label>
+                  <input type="file" name="profile_pic"  class="form-control">
+
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+               <div class="form-group row">
+               <div class="col-sm-12">
+             <label class="col-form-label"><?php echo $this->lang->line('gender'); ?></label>
+                <div>
+              <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="gender" id="male" value="male">
+              <label class="form-check-label" for="male">Male</label>
+               </div>
+             <div class="form-check form-check-inline">
+               <input class="form-check-input" type="radio" name="gender" id="female" value="female">
+                  <label class="form-check-label" for="female">Female</label>
+              </div>
+                </div>
+                </div>
+                   </div>
+                </div>
+
+            
+            <div class="col-md-4">
+                <div class="form-group row">
+                <div class="col-sm-12">
             <label class="col-form-label"><?php echo $this->lang->line('country'); ?></label>
             <select name="country_id" id="country_id" class="form-control select2" onchange="getStates(this.value)">
                 <option value=""><?php echo $this->lang->line('select_option'); ?></option>
@@ -62,56 +115,6 @@
     </div>
 </div>
 
-            
-            <div class="col-md-4">
-              <div class="form-group row">
-                <div class="col-sm-12">
-                  <label class="col-form-label"><?php echo $this->lang->line('cologne');?></label>
-                  <input type="text" class="form-control" name="cologne" />
-                </div>
-              </div>
-            </div>
-            <div class="col-md-4">
-              <div class="form-group row">
-                <div class="col-sm-12">
-                  <label class="col-form-label"><?php echo $this->lang->line('street');?></label>
-                  <input type="text" class="form-control" name="street" />
-                </div>
-              </div>
-            </div>
-            <div class="col-md-4">
-              <div class="form-group row">
-                <div class="col-sm-12">
-                  <label class="col-form-label"><?php echo $this->lang->line('crossings');?></label>
-                  <input type="text" class="form-control" name="crossings" />
-                </div>
-              </div>
-            </div>
-
-            <div class="col-md-4">
-              <div class="form-group row">
-                <div class="col-sm-12">
-                  <label class="col-form-label"><?php echo $this->lang->line('external_number');?></label>
-                  <input type="text" class="form-control" name="external_number" />
-                </div>
-              </div>
-            </div>
-            <div class="col-md-4">
-              <div class="form-group row">
-                <div class="col-sm-12">
-                  <label class="col-form-label"><?php echo $this->lang->line('interior_number');?></label>
-                  <input type="text" class="form-control" name="interior_number" />
-                </div>
-              </div>
-            </div>
-            <div class="col-md-4">
-              <div class="form-group row">
-                <div class="col-sm-12">
-                  <label class="col-form-label"><?php echo $this->lang->line('zip_code');?></label>
-                  <input type="text" class="form-control" name="zip_code" />
-                </div>
-              </div>
-            </div>
             <div class="col-md-4">
               <div class="form-group row">
                 <div class="col-sm-12">
@@ -147,58 +150,33 @@
                 </div>
               </div>
             </div>  
-
             <div class="col-md-4">
               <div class="form-group row">
                 <div class="col-sm-12">
-                  <label class="col-form-label"><?php echo $this->lang->line('guy');?></label>
-				  <select name="guy" class="form-control select2" >
-				  <option value=""><?php echo $this->lang->line('select_option');?></option>
-				  <?php $get_types = $this->Common->getUserRole('internal');
-				  foreach($get_types as $get_type) { ?>
-				  <option value="<?php echo $get_type->slug;?>"><?php echo $get_type->name;?></option>
-				  <?php } ?>
-				  </select>
+                  <label class="col-form-label"><?php echo $this->lang->line('alt_mobile');?></label>
+                  <input type="number" class="form-control" name="alt_mobile" />
+                </div>
+              </div>
+            </div>  
+            <div class="col-md-4">
+              <div class="form-group row">
+                <div class="col-sm-12">
+                  <label class="col-form-label"><?php echo $this->lang->line('documents');?></label>
+                  <input type="text" class="form-control" name="documents" />
+                </div>
+              </div>
+            </div>  
+            <div class="col-md-12">
+              <div class="form-group row">
+                <div class="col-sm-12">
+                <label for="" class="form-label"><?php echo $this->lang->line('address');?></label>
+                <textarea name="address" class="form-control" ></textarea>
                 </div>
               </div>
             </div>
-
+            </div>
+            <div class="row">
             <div class="col-md-4">
-    <div class="form-group row">
-        <div class="col-sm-12">
-            <label class="col-form-label"><?php echo $this->lang->line('radius');?> (In Km)</label>
-            <div class="form-control d-flex align-items-center justify-content-between">
-                <button type="button" onclick="decrement()" class="btn">
-                    <!-- SVG for decrement -->
-                </button>
-                <output id="spinValue" role="spinbutton" aria-valuenow="2" class="mx-2">2</output>
-                <input type="hidden" name="radius" id="value_of_spin" role="spinbutton" aria-valuenow="2" class="mx-2" value="2">
-                <button type="button" onclick="increment()" class="btn">
-                    <!-- SVG for increment -->
-                </button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="col-md-4">
-        <div class="form-group row">
-            <div class="col-sm-12">
-                <label class="col-form-label"><?php echo $this->lang->line('languages');?></label><br>
-                <select name="languages[]" class="form-control select2"  multiple>
-                    <option  value=""><?php echo $this->lang->line('select_option');?></option>
-                    <?php 
-                    $get_languages = $this->Internal_model->get_languages();
-                    foreach($get_languages as $get_language) { ?>
-                        <option value="<?php echo $get_language->value;?>"><?php echo $get_language->value;?></option>
-                    <?php } ?>
-                </select>
-            </div>
-        </div>
-    </div>
-
-          <div class="row ml-1">
-            <div class="col-md-12">
               <div class="form-group row">
                 <div class="col-sm-12">
                   <?php $this->load->view('includes/form_button'); ?>
@@ -206,14 +184,12 @@
               </div>
             </div>
           </div>
-
         </form>
       </div>
     </div>
   </div>
-</div>
-</div>
-
+ 
+  
 <div class="row">
   <input type="hidden" value="<?php echo API_DOMAIN; ?>api/user/company_user_list/<?php echo $role;?>" id="list_end_point">
   <input type="hidden" value="<?php echo API_DOMAIN; ?>api/user/company_user/" id="delete_end_point">

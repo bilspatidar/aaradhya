@@ -54,6 +54,19 @@ class Common_controller extends CI_Controller {
         echo $output; // Send the HTML back to the frontend
     }
     
+    public function get_cities_by_state() {
+        $state_id = $this->input->post('state_id'); // Get state ID from POST request
+        $cities = $this->Internal_model->get_city($state_id); // Fetch cities based on state ID
+    
+        // Generate the HTML for the city dropdown
+        $output = '<option value="">' . $this->lang->line('select_option') . '</option>';
+        foreach ($cities as $city) {
+            $output .= '<option value="' . $city->id . '">' . $city->name . '</option>';
+        }
+    
+        echo $output; // Send the HTML back to the frontend
+    }
+    
     
 	
 }

@@ -934,7 +934,7 @@ class User extends REST_Controller {
 					$this->response(
 						[
 							'status' => FALSE,
-							'message' =>'Account active nahi hai, kripya admin se sampark karein'
+							'message' =>'Account is not active, Please contact to admin'
 						], 
 						REST_Controller::HTTP_UNAUTHORIZED
 					);
@@ -959,7 +959,7 @@ class User extends REST_Controller {
 				$final['user_type'] = $token_data['user_type'];
 				$final['id'] = $token_data['id'];
 				if ($user->user_type == 'superadmin') {
-					$final['redirect_url'] = base_url('admin/master/map');
+					$final['redirect_url'] = base_url('admin/index');
 				} else {
 					$final['redirect_url'] = base_url('admin/index');
 				}

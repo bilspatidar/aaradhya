@@ -341,6 +341,16 @@ public function cities(){
     $this->load->view('master/profile_details');
     $this->load->view('includes/footer');
   }
+
+  
+  public function branch_list(){
+    
+    is_login(array('superadmin','admin'));
+    $header_data['page_title'] = $this->lang->line('branch_list');
+    $this->load->view('includes/header',$header_data);
+    $this->load->view('master/branch_list');
+    $this->load->view('includes/footer');
+  }
 } 
 ?>
 

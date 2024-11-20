@@ -1,4 +1,113 @@
 <?php 
+$lang['branch_list'] = 'Branch List';
+$lang['manage_branch'] = 'Manage Branch';
+$lang['branch_phone'] = 'Branch Phone';
+$lang['branch_code'] = 'Branch Code';
+$lang['branch_email'] = 'Branch Email ';
+$lang['branch_address'] = 'Branch Address';
+$lang['branch_location'] = 'Branch Location';
+
+$lang['lang'] = 'Lang ';
+$lang['latt'] = 'Latt ';
+$lang['country_id'] = 'Country';
+$lang['state_id'] = 'State ';
+$lang['city_id'] = 'City ';
+$lang['area_name'] = 'Area Name ';
+$lang['branch_image'] = 'Branch Image';
+$lang['bname'] = 'Name';
+$lang['manage_users'] = 'Manage Users';
+$lang['manage_product'] = 'Manage Product';
+$lang['products'] = 'Products';
+$lang['manage_rate'] = 'Mange Rate';
+$lang['manage_stock'] = 'Manage Stock';
+$lang['transfer_stock'] = 'Transfer Stock';
+$lang['return_stock'] = ' Return Stock';
+$lang['manage_payment'] = 'Manage Payment ';
+$lang['online_payment'] = 'Online Payment';
+$lang['offline_payment'] = 'Offline Payment';
+$lang['reports'] = 'Reports';
+$lang['branch_report'] = 'Branch Report';
+$lang['stock_report'] = 'Stock Report';
+$lang['member_report'] = 'Member Report';
+$lang['sale_report'] = 'Sale Report';
+$lang['emi_report'] = 'EMI report';
+$lang['master_setting'] = 'Master Setting';
+$lang['common_setting'] = 'Common setting';
+$lang['payment_setting'] = 'Payment settting';
+$lang['configuration_setting'] = 'Configuration setting';
+
+$lang['employee_code'] = 'Employee Code';
+$lang['gender'] = 'Gender';
+$lang['alt_mobile'] = 'Alt Mobile';
+$lang['dob'] = 'Date Of Birth';
+$lang['profile_pic'] = 'Profile Pic';
+$lang['doj'] = 'Date Of Join';
+$lang['location'] = 'Location';
+$lang['address'] = 'Address';
+$lang['documents'] = 'Documents';
+$lang['reports'] = 'Reports';
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 $lang['welcome_message'] = 'Welcome to our website!';
 $lang['control_de_precios'] = 'Price Control';
 $lang['administrar usuarios'] = 'Manage User';
@@ -79,8 +188,7 @@ $lang['status'] = 'Status';
 $lang['Action'] = 'Actions';
 $lang['permision'] = 'Permision';
 
-$lang['nombre'] = 'Name';
-$lang['name'] = 'First Name';
+$lang['first_name'] = 'Name';
 $lang['image'] = 'Image';
 $lang['select_status'] = 'Select Status';
 $lang['option'] = 'Option';

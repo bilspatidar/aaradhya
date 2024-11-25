@@ -98,7 +98,7 @@ class Branch extends REST_Controller {
                 $data['country_id'] = $this->input->post('country_id',TRUE);
                 $data['state_id'] = $this->input->post('state_id',TRUE);
 				$data['city_id'] = $this->input->post('city_id',TRUE);
-                $data['area_name'] = $this->input->post('area_name',TRUE);
+                // $data['area_name'] = $this->input->post('area_name',TRUE);
 
 
 				if(!empty($_POST['branch_image'])){

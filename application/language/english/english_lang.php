@@ -45,7 +45,36 @@ $lang['doj'] = 'Date Of Join';
 $lang['location'] = 'Location';
 $lang['address'] = 'Address';
 $lang['documents'] = 'Documents';
-$lang['reports'] = 'Reports';
+$lang['metal'] = 'Metal';
+$lang['short_name'] = 'Short Name';
+$lang['code'] = 'Code';
+$lang['weight'] = 'Weight';
+$lang['other_weight'] = 'Other Weight';
+$lang['making_charge'] = 'Making Charge';
+$lang['gst'] = 'GST';
+$lang['other_charges'] = 'Other Charges';
+$lang['images'] = 'Images';
+$lang['barcode'] = 'Barcode';
+$lang['manage_member'] = 'Manage_member';
+$lang['add_member'] = 'Add Member';
+$lang['member_code'] = 'Member code';
+$lang['marital_status'] = 'marital Status';
+$lang['first_name'] = 'First Name';
+
+$lang['income'] = 'Income';
+$lang['total_family_member'] = 'Total Family Member';
+$lang['father_husband_name'] = 'Father Husband Member';
+$lang['city'] = 'City';
+$lang['pincode'] = 'Pincode';
+$lang['manage_group'] = 'Manage Group';
+$lang['add_group'] = 'Add Group';
+$lang['leader_name'] = 'Leader Name';
+$lang['images'] = 'Images';
+$lang['images'] = 'Images';
+$lang['images'] = 'Images';
+$lang['images'] = 'Images';
+
+
 
 
 
@@ -121,7 +150,7 @@ $lang['usuario_empresa'] = 'Company User';
 $lang['statistics'] = 'Statistics';
 $lang['usuarios_reportados'] = 'Reported Users';
 $lang['usuarios_elite'] = 'Elite Users';
-$lang['categorias'] = 'Categories';
+$lang['categories'] = 'Categories';
 $lang['select_option'] = 'Select an Option';
 $lang['subcategorias'] = 'Subcategories';
 $lang['activar_usuarios_free'] = 'Activate Free Users';
@@ -188,7 +217,7 @@ $lang['status'] = 'Status';
 $lang['Action'] = 'Actions';
 $lang['permision'] = 'Permision';
 
-$lang['first_name'] = 'Name';
+$lang['first_name'] = 'First Name';
 $lang['image'] = 'Image';
 $lang['select_status'] = 'Select Status';
 $lang['option'] = 'Option';

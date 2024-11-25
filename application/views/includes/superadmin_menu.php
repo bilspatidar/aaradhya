@@ -154,9 +154,29 @@
                        </li>
                         </ul>
                     </li>
-
-                   
-
+        <!-- branchadminfild -->
+        <li>
+                        <a href="#uiElements" class="has-arrow"><i class="icon-diamond"></i><span><?php echo $this->lang->line('manage_member');?></span></a>
+                        <ul>
+                          
+                        <li>
+                        <a href="<?php echo base_url();?>admin/master/add_member" class=""><span><?php echo $this->lang->line('add_member');?></span></a>
+                      
+                       </li>
+                       
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#uiElements" class="has-arrow"><i class="icon-diamond"></i><span><?php echo $this->lang->line('manage_group');?></span></a>
+                        <ul>
+                          
+                        <li>
+                        <a href="<?php echo base_url();?>admin/master/add_group" class=""><span><?php echo $this->lang->line('add_group');?></span></a>
+                      
+                       </li>
+                       
+                        </ul>
+                    </li>
                 </ul>
             </nav>     
         </div>

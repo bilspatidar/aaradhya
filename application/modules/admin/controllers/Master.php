@@ -209,12 +209,12 @@ public function metals(){
     
 }
 
-public function product(){
+public function products(){
     
       is_login(array('superadmin','admin'));
-      $header_data['page_title'] = "Product";
+      $header_data['page_title'] = "Products";
       $this->load->view('includes/header');
-      $this->load->view('master/product',$header_data);
+      $this->load->view('master/products',$header_data);
       $this->load->view('includes/footer');
 }
 public function document_subcategory(){
@@ -349,6 +349,28 @@ public function cities(){
     $header_data['page_title'] = $this->lang->line('branch_list');
     $this->load->view('includes/header',$header_data);
     $this->load->view('master/branch_list');
+    $this->load->view('includes/footer');
+  }
+
+  public function add_member(){
+    is_login(array('superadmin','admin'));
+    $header_data['page_title'] = $this->lang->line('add_member');
+    $this->load->view('includes/header',$header_data);
+    $this->load->view('master/add_member');
+    $this->load->view('includes/footer');
+  }
+  public function add_group(){
+    is_login(array('superadmin','admin'));
+    $header_data['page_title'] = $this->lang->line('add_group');
+    $this->load->view('includes/header',$header_data);
+    $this->load->view('master/add_group');
+    $this->load->view('includes/footer');
+  }
+  public function invoceproduct(){
+    is_login(array('superadmin','admin'));
+    $header_data['page_title'] = $this->lang->line('invoce');
+    $this->load->view('includes/header',$header_data);
+    $this->load->view('master/invoceproduct');
     $this->load->view('includes/footer');
   }
 } 

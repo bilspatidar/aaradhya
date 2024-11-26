@@ -6,6 +6,7 @@ $lang['branch_code'] = 'Branch Code';
 $lang['branch_email'] = 'Branch Email ';
 $lang['branch_address'] = 'Branch Address';
 $lang['branch_location'] = 'Branch Location';
+$lang['role'] = 'Role';
 
 $lang['lang'] = 'Lang ';
 $lang['latt'] = 'Latt ';

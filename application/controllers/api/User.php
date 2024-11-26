@@ -1492,7 +1492,7 @@ public function company_user_post($params='') {
 		$_POST = json_decode($this->input->raw_input_stream, true);
 
 		// set validation rules
-		$this->form_validation->set_rules('name', 'Username', 'trim|required|xss_clean|alpha_numeric|min_length[3]');
+		// $this->form_validation->set_rules('user_name', 'Username', 'trim|required|xss_clean|alpha_numeric|min_length[3]');
 		$this->form_validation->set_rules('email', 'Email', 'trim|required|xss_clean|is_unique[users.email]');
 		$this->form_validation->set_rules('mobile', 'Mobile Number', 'trim|required|xss_clean|min_length[10]');
 		$this->form_validation->set_rules('password', 'Password', 'trim|required|xss_clean|min_length[6]');
@@ -1512,49 +1512,59 @@ public function company_user_post($params='') {
 			// set variables from the form
 			$data['name'] = $this->input->post('name',TRUE);
 			$data['last_name'] = $this->input->post('last_name',TRUE);
-			$date_of_birth = $this->input->post('date_of_birth', TRUE);
+			$date_of_birth = $this->input->post('dob', TRUE);
 
-			// अगर डेट पिकर से ली गई तारीख सही है तो उसे फॉर्मेट करें
-			if ($date_of_birth) {
-				$formatted_date_of_birth = date('Y-m-d', strtotime($date_of_birth));
-				$data['date_of_birth'] = $formatted_date_of_birth;
+			अगर डेट पिकर से ली गई तारीख सही है तो उसे फॉर्मेट करें
+			if ($dob) {
+				$formatted_date_of_birth = date('Y-m-d', strtotime($dob));
+				$data['dob'] = $formatted_date_of_birth;
 			} else {
-				$data['date_of_birth'] = NULL; // अगर तारीख नहीं है तो NULL कर सकते हैं
+				$data['dob'] = NULL; // अगर तारीख नहीं है तो NULL कर सकते हैं
 			}
-							$data['country_id'] = $this->input->post('country_id',TRUE);
+
+
+			$doj = $this->input->post('doj', TRUE);
+			// अगर डेट पिकर से ली गई तारीख सही है तो उसे फॉर्मेट करें
+			if ($doj) {
+				$formatted_date_of_join = date('Y-m-d', strtotime($doj));
+				$data['doj'] = $formatted_date_of_join;
+			} else {
+				$data['doj'] = NULL; // अगर तारीख नहीं है तो NULL कर सकते हैं
+			}
+			$data['country_id'] = $this->input->post('country_id',TRUE);
 			$data['email'] = $this->input->post('email',TRUE);
 			$data['state_id'] = $this->input->post('state_id',TRUE);
-			$data['cologne'] = $this->input->post('cologne',TRUE);
-			$data['street'] = $this->input->post('street',TRUE);
-			$data['crossings'] = $this->input->post('crossings',TRUE);
-			$data['external_number'] = $this->input->post('external_number',TRUE);
-			$data['interior_number'] = $this->input->post('interior_number',TRUE);
-			$data['zip_code'] = $this->input->post('zip_code',TRUE);
+			$data['employee_code'] = $this->input->post('employee_code',TRUE);
+			$data['location'] = $this->input->post('location',TRUE);
+			$data['alt_mobile'] = $this->input->post('alt_mobile',TRUE);
+			$data['gender'] = $this->input->post('gender',TRUE);
+			$data['documents'] = $this->input->post('documents',TRUE);
+			$data['address'] = $this->input->post('address',TRUE);
 			$data['password'] = password_hash($this->input->post('password',TRUE),PASSWORD_DEFAULT);
 			$data['confirm_password'] = $this->input->post('confirm_password',TRUE);
 			$data['mobile'] = $this->input->post('mobile',TRUE);
-			$data['user_type'] = $this->input->post('guy',TRUE);
+			$data['user_type'] = $this->input->post('role',TRUE);
 			$radius = $this->input->post('radius', TRUE);
-			 $data['radius'] = (is_null($radius) || $radius === '') ? 0 : (int)$radius; // Ensure it's an integer
+			//  $data['radius'] = (is_null($radius) || $radius === '') ? 0 : (int)$radius; // Ensure it's an integer
 
 
-		   $languages = $this->input->post('languages');
-			if (is_array($languages)) {
-				$languages = implode(',', $languages);
-			} else {
-				$languages = ''; // Handle the case where no languages are selected
-			}
-			$data['languages'] = $languages;
+		//    $languages = $this->input->post('languages');
+		// 	if (is_array($languages)) {
+		// 		$languages = implode(',', $languages);
+		// 	} else {
+		// 		$languages = ''; // Handle the case where no languages are selected
+		// 	}
+		// 	$data['languages'] = $languages;
 
-		   $languages = $this->input->post('languages');
-				if(!empty($languages)){
-				$languages = implode(",",$languages);
-				$data['languages'] = $languages;
-				}
+		//    $languages = $this->input->post('languages');
+		// 		if(!empty($languages)){
+		// 		$languages = implode(",",$languages);
+		// 		$data['languages'] = $languages;
+		// 		}
 			
 		   // $data['image'] = $this->input->post('image',TRUE);
-			if(!empty($_POST['image'])){
-				$base64_image = $_POST['image'];
+			if(!empty($_POST['profile_pic'])){
+				$base64_image = $_POST['profile_pic'];
 				$quality = 90;
 				$radiusConfig = [
 					'resize' => [
@@ -1564,7 +1574,7 @@ public function company_user_post($params='') {
 				 ];
 				$uploadFolder = 'regular_user'; 
 
-				$data['image'] = $this->upload_media->upload_and_save($base64_image, $quality, $radiusConfig, $uploadFolder);
+				$data['profile_pic'] = $this->upload_media->upload_and_save($base64_image, $quality, $radiusConfig, $uploadFolder);
 				
 			}
 				

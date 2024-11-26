@@ -13,7 +13,7 @@
               <div class="form-group row">
                 <div class="col-sm-12">
                   <label class="col-form-label"><?php echo $this->lang->line('name');?></label>
-                  <input type="text" class="form-control" name="first_name" />
+                  <input type="text" class="form-control" name="user_name" />
                 </div>
               </div>
             </div>
@@ -67,6 +67,20 @@
                   <label class="col-form-label"><?php echo $this->lang->line('profile_pic');?></label>
                   <input type="file" name="profile_pic"  class="form-control">
 
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group row">
+                <div class="col-sm-12">
+                  <label class="col-form-label"><?php echo $this->lang->line('role');?></label>
+				  <select name="role" class="form-control select2" >
+				  <option value=""><?php echo $this->lang->line('select_option');?></option>
+				  <?php $get_types = $this->Common->getUserRole('internal');
+				  foreach($get_types as $get_type) { ?>
+				  <option value="<?php echo $get_type->slug;?>"><?php echo $get_type->name;?></option>
+				  <?php } ?>
+				  </select>
                 </div>
               </div>
             </div>

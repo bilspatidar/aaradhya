@@ -1512,24 +1512,24 @@ public function company_user_post($params='') {
 			// set variables from the form
 			$data['name'] = $this->input->post('name',TRUE);
 			$data['last_name'] = $this->input->post('last_name',TRUE);
-			$date_of_birth = $this->input->post('dob', TRUE);
+			$date_of_birth = $this->input->post('date_of_birth', TRUE);
 
-			अगर डेट पिकर से ली गई तारीख सही है तो उसे फॉर्मेट करें
-			if ($dob) {
-				$formatted_date_of_birth = date('Y-m-d', strtotime($dob));
-				$data['dob'] = $formatted_date_of_birth;
+			// अगर डेट पिकर से ली गई तारीख सही है तो उसे फॉर्मेट करें
+			if ($date_of_birth) {
+				$formatted_date_of_birth = date('Y-m-d', strtotime($date_of_birth));
+				$data['date_of_birth'] = $formatted_date_of_birth;
 			} else {
-				$data['dob'] = NULL; // अगर तारीख नहीं है तो NULL कर सकते हैं
+				$data['date_of_birth'] = NULL; // अगर तारीख नहीं है तो NULL कर सकते हैं
 			}
 
 
-			$doj = $this->input->post('doj', TRUE);
+			$date_of_joining = $this->input->post('date_of_joining', TRUE);
 			// अगर डेट पिकर से ली गई तारीख सही है तो उसे फॉर्मेट करें
-			if ($doj) {
-				$formatted_date_of_join = date('Y-m-d', strtotime($doj));
-				$data['doj'] = $formatted_date_of_join;
+			if ($date_of_joining) {
+				$formatted_date_of_join = date('Y-m-d', strtotime($date_of_joining));
+				$data['date_of_joining'] = $formatted_date_of_join;
 			} else {
-				$data['doj'] = NULL; // अगर तारीख नहीं है तो NULL कर सकते हैं
+				$data['date_of_joining'] = NULL; // अगर तारीख नहीं है तो NULL कर सकते हैं
 			}
 			$data['country_id'] = $this->input->post('country_id',TRUE);
 			$data['email'] = $this->input->post('email',TRUE);
@@ -1538,12 +1538,12 @@ public function company_user_post($params='') {
 			$data['location'] = $this->input->post('location',TRUE);
 			$data['alt_mobile'] = $this->input->post('alt_mobile',TRUE);
 			$data['gender'] = $this->input->post('gender',TRUE);
-			$data['documents'] = $this->input->post('documents',TRUE);
+			$data['branch_id'] = $this->input->post('branch_id',TRUE);
 			$data['address'] = $this->input->post('address',TRUE);
 			$data['password'] = password_hash($this->input->post('password',TRUE),PASSWORD_DEFAULT);
 			$data['confirm_password'] = $this->input->post('confirm_password',TRUE);
 			$data['mobile'] = $this->input->post('mobile',TRUE);
-			$data['user_type'] = $this->input->post('role',TRUE);
+			$data['user_type'] = $this->input->post('user_type',TRUE);
 			$radius = $this->input->post('radius', TRUE);
 			//  $data['radius'] = (is_null($radius) || $radius === '') ? 0 : (int)$radius; // Ensure it's an integer
 
@@ -1710,36 +1710,42 @@ public function company_user_post($params='') {
 	
 }
    
-public function company_user_list_post($role='') {
-	$input_data = file_get_contents('php://input');
-	$request_data = json_decode($input_data, true);
+public function company_user_list_post($role = '') {
+    // Input data
+    $input_data = file_get_contents('php://input');
+    $request_data = json_decode($input_data, true);
 
-	$id = $this->input->get('id') ? $this->input->get('id') : 0;
-	$role = $role ? $role : '';
+    // Parameters
+    $id = $this->input->get('id') ? $this->input->get('id') : 0;
+    $role = !empty($role) ? $role : (isset($request_data['user_type']) ? $request_data['user_type'] : '');
 
-	$page = isset($request_data['page']) ? $request_data['page'] : 1; // Default to page 1 if not provided
-	$limit = isset($request_data['limit']) ? $request_data['limit'] : 10; // Default limit to 10 if not provided
-	$filterData = isset($request_data['filterData']) ? $request_data['filterData'] : [];
+    $page = isset($request_data['page']) ? $request_data['page'] : 1; // Default to page 1
+    $limit = isset($request_data['limit']) ? $request_data['limit'] : 10; // Default limit to 10
+    $filterData = isset($request_data['filterData']) ? $request_data['filterData'] : [];
 
-	$getTokenData = $this->is_authorized('superadmin');
-	$offset = ($page - 1) * $limit;
+    $getTokenData = $this->is_authorized('superadmin'); // Authorization check
+    $offset = ($page - 1) * $limit;
 
-	$totalRecords =  $this->user_model->get('yes', $id, $limit, $offset, $filterData,$role);
-	$data =  $this->user_model->get('no', $id, $limit, $offset, $filterData,$role);
+    // Fetch total records for pagination
+    $totalRecords = $this->user_model->get_company_user_list('yes', $id, $limit, $offset, $filterData, $role);
+    // Fetch paginated data
+    $data = $this->user_model->get_company_user_list('no', $id, $limit, $offset, $filterData, $role);
 
-	$totalPages = ceil($totalRecords / $limit);
+    // Total pages calculation
+    $totalPages = ceil($totalRecords / $limit);
 
-	$response = [
-		'status' => true,
-		'data' => $data,
-		'pagination' => [
-			'page' => $page,
-			'totalPages' => $totalPages,
-			'totalRecords' => $totalRecords
-		],
-		'message' => 'Usuario de la empresa obtenido correctamente.'
-	];
-	$this->response($response, REST_Controller::HTTP_OK); 
+    // Build response
+    $response = [
+        'status' => true,
+        'data' => $data,
+        'pagination' => [
+            'page' => $page,
+            'totalPages' => $totalPages,
+            'totalRecords' => $totalRecords
+        ],
+        'message' => 'Usuario de la empresa obtenido correctamente.'
+    ];
+    $this->response($response, REST_Controller::HTTP_OK); 
 }
 
 public function company_user_details_get(){
@@ -1765,6 +1771,306 @@ public function company_user_delete($id) {
 	}
 }
 	
+
+public function add_member_post($params='') {
+
+	if($params=='add') {
+		$getTokenData = $this->is_authorized(array('superadmin','branch_admin'));
+		$usersData = json_decode(json_encode($getTokenData), true);
+		$session_id = $usersData['data']['id'];
+
+		$_POST = json_decode($this->input->raw_input_stream, true);
+
+		// set validation rules
+		$this->form_validation->set_rules('name', 'Name', 'trim|required|xss_clean|alpha_numeric|min_length[3]');
+		$this->form_validation->set_rules('email', 'Email', 'trim|required|xss_clean|is_unique[users.email]');
+		$this->form_validation->set_rules('mobile', 'Mobile Number', 'trim|required|xss_clean|min_length[10]');
+	
+		if ($this->form_validation->run() === false) {
+			$array_error = array_map(function ($val) {
+				return str_replace(array("\r", "\n"), '', strip_tags($val));
+			}, array_filter(explode(".", trim(strip_tags(validation_errors())))));
+
+			$this->response([
+				'status' => FALSE,
+				'message' =>'Error in submit form',
+				'errors' =>$array_error
+			], REST_Controller::HTTP_BAD_REQUEST,'','error');
+		} else {
+			// set variables from the form
+			$data['name'] = $this->input->post('name',TRUE);
+			$data['last_name'] = $this->input->post('last_name',TRUE);
+			$data['member_code'] = $this->input->post('member_code',TRUE);
+			$data['city_id'] = $this->input->post('city_id',TRUE);
+			$data['country_id'] = $this->input->post('country_id',TRUE);
+			$data['email'] = $this->input->post('email',TRUE);
+			$data['state_id'] = $this->input->post('state_id',TRUE);
+			$data['location'] = $this->input->post('location',TRUE);
+			$data['alt_mobile'] = $this->input->post('alt_mobile',TRUE);
+			$data['gender'] = $this->input->post('gender',TRUE);
+			$data['address'] = $this->input->post('address',TRUE);
+			$data['mobile'] = $this->input->post('mobile',TRUE);
+			$data['marital_status'] = $this->input->post('marital_status',TRUE);
+			$data['category'] = $this->input->post('category',TRUE);
+			$data['total_income'] = $this->input->post('total_income',TRUE);
+			$data['total_family_member'] = $this->input->post('total_family_member',TRUE);
+			$data['father_husband_name'] = $this->input->post('father_husband_name',TRUE);
+			$data['zip_code'] = $this->input->post('zip_code',TRUE);
+			// $data['aadhar_front'] = $this->input->post('aadhar_front',TRUE);
+			// $data['aadhar_back'] = $this->input->post('aadhar_back',TRUE);
+
+			$radius = $this->input->post('radius', TRUE);
+			//  $data['radius'] = (is_null($radius) || $radius === '') ? 0 : (int)$radius; // Ensure it's an integer
+
+
+		//    $languages = $this->input->post('languages');
+		// 	if (is_array($languages)) {
+		// 		$languages = implode(',', $languages);
+		// 	} else {
+		// 		$languages = ''; // Handle the case where no languages are selected
+		// 	}
+		// 	$data['languages'] = $languages;
+
+		//    $languages = $this->input->post('languages');
+		// 		if(!empty($languages)){
+		// 		$languages = implode(",",$languages);
+		// 		$data['languages'] = $languages;
+		// 		}
+			
+		//    $data['image'] = $this->input->post('image',TRUE);
+			if(!empty($_POST['profile_pic'])){
+				$base64_image = $_POST['profile_pic'];
+				$quality = 90;
+				$radiusConfig = [
+					'resize' => [
+					'width' => 500,
+					'height' => 300
+					]
+				 ];
+				$uploadFolder = 'regular_user'; 
+
+				$data['profile_pic'] = $this->upload_media->upload_and_save($base64_image, $quality, $radiusConfig, $uploadFolder);
+				
+			}
+			if(!empty($_POST['aadhar_front'])){
+				$base64_image = $_POST['aadhar_front'];
+				$quality = 90;
+				$radiusConfig = [
+					'resize' => [
+					'width' => 500,
+					'height' => 300
+					]
+				 ];
+				$uploadFolder = 'user'; 
+
+				$data['profile_pic'] = $this->upload_media->upload_and_save($base64_image, $quality, $radiusConfig, $uploadFolder);
+				
+			}
+				
+			if(!empty($_POST['aadhar_back'])){
+				$base64_image = $_POST['aadhar_back'];
+				$quality = 90;
+				$radiusConfig = [
+					'resize' => [
+					'width' => 500,
+					'height' => 300
+					]
+				 ];
+				$uploadFolder = 'user'; 
+
+				$data['profile_pic'] = $this->upload_media->upload_and_save($base64_image, $quality, $radiusConfig, $uploadFolder);
+				
+			}
+			$data['user_type'] = 'customer';
+			$data['status'] = 'Active';
+			$data['added'] = date('Y-m-d H:i:s');
+			$data['addedBy'] = $session_id;
+
+			if ($res = $this->user_model->create_user($data)) {
+				// Regular User creation ok
+				$final = array();
+				$final['status'] = true;
+				$final['data'] = $this->user_model->get();
+				$final['message'] = 'Regular User created successfully.';
+				$this->response($final, REST_Controller::HTTP_OK); 
+			} else {
+				// Regular user creation failed, this should never happen
+				$this->response([ 'status' => FALSE,
+					'message' =>'Error in submit form',
+					'errors' =>[$this->db->error()]], REST_Controller::HTTP_BAD_REQUEST,'','error');
+			}
+		}
+	}
+
+	if ($params == 'update') {
+		$getTokenData = $this->is_authorized('superadmin');
+		$usersData = json_decode(json_encode($getTokenData), true);
+		$session_id = $usersData['data']['id'];
+	
+		$_POST = json_decode($this->input->raw_input_stream, true);
+	
+		// set validation rules
+		$this->form_validation->set_rules('name', 'Name', 'trim|required|xss_clean|alpha_numeric_spaces');
+	
+		if ($this->form_validation->run() === false) {
+			$array_error = array_map(function ($val) {
+				return str_replace(array("\r", "\n"), '', strip_tags($val));
+			}, array_filter(explode(".", trim(strip_tags(validation_errors())))));
+	
+			$this->response([
+				'status' => FALSE,
+				'message' => 'Error in submit form',
+				'errors' => $array_error
+			], REST_Controller::HTTP_BAD_REQUEST, '', 'error');
+		} else {
+			$id = $this->input->post('id',TRUE);
+			$data['name'] = $this->input->post('name',TRUE);
+			$data['last_name'] = $this->input->post('last_name',TRUE);
+			$date_of_birth = $this->input->post('date_of_birth', TRUE);
+
+			// अगर डेट पिकर से ली गई तारीख सही है तो उसे फॉर्मेट करें
+			if ($date_of_birth) {
+				$formatted_date_of_birth = date('Y-m-d', strtotime($date_of_birth));
+				$data['date_of_birth'] = $formatted_date_of_birth;
+			} else {
+				$data['date_of_birth'] = NULL; // अगर तारीख नहीं है तो NULL कर सकते हैं
+			}
+			$data['country_id'] = $this->input->post('country_id',TRUE);
+			$data['email'] = $this->input->post('email',TRUE);
+			$data['state_id'] = $this->input->post('state_id',TRUE);
+			$data['cologne'] = $this->input->post('cologne',TRUE);
+			$data['street'] = $this->input->post('street',TRUE);
+			$data['crossings'] = $this->input->post('crossings',TRUE);
+			$data['external_number'] = $this->input->post('external_number',TRUE);
+			$data['interior_number'] = $this->input->post('interior_number',TRUE);
+			$data['zip_code'] = $this->input->post('zip_code',TRUE);
+			$data['password'] = password_hash($this->input->post('password',TRUE),PASSWORD_DEFAULT);
+			$data['confirm_password'] = $this->input->post('confirm_password',TRUE);
+			$data['mobile'] = $this->input->post('mobile',TRUE);
+			$data['guy'] = $this->input->post('guy',TRUE);
+			$radius = $this->input->post('radius', TRUE);
+			$data['radius'] = (is_null($radius) || $radius === '') ? 0 : (int)$radius; // Ensure it's an integer
+
+			$languages = $this->input->post('languages');
+				if (is_array($languages)) {
+					$languages = implode(",", $languages);
+				} else {
+					$languages = ''; // Handle the case where no languages are selected
+				}
+				$data['languages'] = $languages;
+
+
+			$status = $this->input->post('status',TRUE);
+			if (!empty($status)) {
+				$data['status'] = $status;
+			}
+			
+			///image 
+			if(!empty($_POST['image'])){
+				$base64_image = $_POST['image'];
+				$quality = 90;
+				$radiusConfig = [
+					'resize' => [
+					'width' => 500,
+					'height' => 300
+					]
+				 ];
+				$uploadFolder = 'regular_user'; 
+
+				$data['image'] = $this->upload_media->upload_and_save($base64_image, $quality, $radiusConfig, $uploadFolder);
+				
+				$imgData = $this->db->get_where('regular_user',array('id'=>$id));
+				if($imgData->num_rows()>0){
+					$img =  $imgData->row()->image;
+					if(file_exists($img) && !empty($img))
+					{
+						unlink($img);		
+					}
+				}
+			}
+			////image  
+			$data['updatedBy'] = $session_id;
+			$data['updated'] = date('Y-m-d H:i:s');
+			
+			$res = $this->regular_user_model->update($data, $id);
+	
+			if ($res) {
+				// regular_user update ok
+				$final = array();
+				$final['status'] = true;
+				$final['data'] = $this->regular_user_model->get($id);
+				$final['message'] = 'Regular user updated successfully.';
+				$this->response($final, REST_Controller::HTTP_OK);
+			} else {
+				// regular_user update failed, this should never happen
+				$this->response([
+					'status' => FALSE,
+					'message' => 'There was a problem updating regular user. Please try again',
+					'errors' => [$this->db->error()]
+				], REST_Controller::HTTP_BAD_REQUEST, '', 'error');
+			}
+		}
+	}
+	
+}
+public function member_list_post($role = '') {
+    // Input data
+    $input_data = file_get_contents('php://input');
+    $request_data = json_decode($input_data, true);
+
+    // Parameters
+    $id = $this->input->get('id') ? $this->input->get('id') : 0;
+    $role = !empty($role) ? $role : (isset($request_data['user_type']) ? $request_data['user_type'] : '');
+
+    $page = isset($request_data['page']) ? $request_data['page'] : 1; // Default to page 1
+    $limit = isset($request_data['limit']) ? $request_data['limit'] : 10; // Default limit to 10
+    $filterData = isset($request_data['filterData']) ? $request_data['filterData'] : [];
+
+	$getTokenData = $this->is_authorized(array('superadmin','branch_admin'));
+    $offset = ($page - 1) * $limit;
+
+    // Fetch total records for pagination
+    $totalRecords = $this->user_model->get_company_user_list('yes', $id, $limit, $offset, $filterData, $role);
+    // Fetch paginated data
+    $data = $this->user_model->get_company_user_list('no', $id, $limit, $offset, $filterData, $role);
+
+    // Total pages calculation
+    $totalPages = ceil($totalRecords / $limit);
+
+    // Build response
+    $response = [
+        'status' => true,
+        'data' => $data,
+        'pagination' => [
+            'page' => $page,
+            'totalPages' => $totalPages,
+            'totalRecords' => $totalRecords
+        ],
+        'message' => 'Usuario de la empresa obtenido correctamente.'
+    ];
+    $this->response($response, REST_Controller::HTTP_OK); 
+}
+public function member_details_get(){
+	$id = $this->input->get('id') ? $this->input->get('id') : 0;
+	$getTokenData = $this->is_authorized(array('superadmin','branch_admin'));
+	$data =  $this->user_model->show($id);
+	$response = [
+		'status' => true,
+		'data' => $data,
+		'message' => 'El usuario de la empresa fetched correctamente.'
+	];
+	$this->response($response, REST_Controller::HTTP_OK); 
+}
+public function member_delete($id) {
+	 $this->is_authorized(array('superadmin','branch_admin'));
+	$response = $this->user_model->delete($id);
+
+	if ($response) {
+		$this->response(['status' => true, 'message' => 'regular user deleted successfully.'], REST_Controller::HTTP_OK);
+	} else {
+		$this->response(['status' => false, 'message' => 'Not deleted'], REST_Controller::HTTP_BAD_REQUEST);
+	}
+}
 
 
 }

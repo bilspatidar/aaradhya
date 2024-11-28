@@ -82,7 +82,7 @@ public function cv (){
 
 public function add_user (){
     
-  is_login(array('superadmin','admin'));
+  is_login(array('superadmin','admin','branch_admin'));
   $header_data['page_title'] = $this->lang->line('users');
   $this->load->view('includes/header',$header_data);
   $this->load->view('master/regular_user');
@@ -90,7 +90,7 @@ public function add_user (){
 }
 public function users ($role=''){
     
-  is_login(array('superadmin','admin'));
+  is_login(array('superadmin','admin','branch_admin'));
   $header_data['page_title'] = $this->lang->line('users');
   $page_data['role'] = $role;
   $this->load->view('includes/header',$header_data);
@@ -100,7 +100,7 @@ public function users ($role=''){
 
 public function application_user ($role=''){
     
-  is_login(array('superadmin','admin'));
+  is_login(array('superadmin','admin','branch_admin'));
   $header_data['page_title'] = $this->lang->line('application_user');
   $page_data['role'] = $role;
   $this->load->view('includes/header',$header_data);
@@ -353,21 +353,21 @@ public function cities(){
   }
 
   public function add_member(){
-    is_login(array('superadmin','admin'));
+    is_login(array('superadmin','admin','branch_admin'));
     $header_data['page_title'] = $this->lang->line('add_member');
     $this->load->view('includes/header',$header_data);
     $this->load->view('master/add_member');
     $this->load->view('includes/footer');
   }
   public function add_group(){
-    is_login(array('superadmin','admin'));
+    is_login(array('superadmin','admin','branch_admin'));
     $header_data['page_title'] = $this->lang->line('add_group');
     $this->load->view('includes/header',$header_data);
     $this->load->view('master/add_group');
     $this->load->view('includes/footer');
   }
   public function invoceproduct(){
-    is_login(array('superadmin','admin'));
+    is_login(array('superadmin','admin','branch_admin'));
     $header_data['page_title'] = $this->lang->line('invoce');
     $this->load->view('includes/header',$header_data);
     $this->load->view('master/invoceproduct');

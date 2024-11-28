@@ -72,7 +72,7 @@
                         <a href="<?php echo base_url();?>admin/master/add_user" class=""></i><span><?php echo $this->lang->line('regular_user');?></span></a>
                       
                        </li>
-                       <?php $ur = $this->Common->getUserRole('internal');  foreach($ur as $urres){ ?>
+                       <?php $ur = $this->Common->getUserRole();  foreach($ur as $urres){ ?>
                     <li>
                     <a href="<?php echo base_url();?>admin/master/users/<?php echo $urres->slug; ?>" class=""><span><?php echo $this->lang->line($urres->name) ?: $urres->name;?></span></a>
                      

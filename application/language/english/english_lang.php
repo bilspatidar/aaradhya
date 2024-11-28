@@ -56,13 +56,13 @@ $lang['gst'] = 'GST';
 $lang['other_charges'] = 'Other Charges';
 $lang['images'] = 'Images';
 $lang['barcode'] = 'Barcode';
-$lang['manage_member'] = 'Manage_member';
+$lang['manage_member'] = 'Manage Member';
 $lang['add_member'] = 'Add Member';
 $lang['member_code'] = 'Member code';
 $lang['marital_status'] = 'marital Status';
 $lang['first_name'] = 'First Name';
 
-$lang['income'] = 'Income';
+$lang['total_income'] = ' Total Income';
 $lang['total_family_member'] = 'Total Family Member';
 $lang['father_husband_name'] = 'Father Husband Member';
 $lang['city'] = 'City';
@@ -70,8 +70,10 @@ $lang['pincode'] = 'Pincode';
 $lang['manage_group'] = 'Manage Group';
 $lang['add_group'] = 'Add Group';
 $lang['leader_name'] = 'Leader Name';
-$lang['images'] = 'Images';
-$lang['images'] = 'Images';
+$lang['branch_name'] = 'Branch Name';
+$lang['aadharf'] = 'Aadhar In Front';
+$lang['aadharb'] = 'Aadhar In Back';
+
 $lang['images'] = 'Images';
 $lang['images'] = 'Images';
 

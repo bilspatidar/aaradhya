@@ -24,7 +24,7 @@
                         <li><a href="<?php echo base_url();?>admin/admin/logout"><i class="icon-power"></i>Logout</a></li>
                     </ul>
                 </div>
-                <a href="javascript:void(0);" class="btn btn-sm btn-block btn-primary btn-round mt-3" title=""><i class="icon-plus mr-1"></i> Create New</a>
+                <a href="<?php echo base_url();?>admin/master/add_user" class="btn btn-sm btn-block btn-primary btn-round mt-3" title=""><i class="icon-plus mr-1"></i> Create New</a>
             </div>  
             <nav id="left-sidebar-nav" class="sidebar-nav">
                 <ul id="main-menu" class="metismenu">
@@ -33,117 +33,89 @@
                         <a href="<?php echo base_url();?>admin/index" class="has-arrow"><i class="icon-speedometer"></i><span>Dashboard</span></a>
                         
                     </li>
-                  
+                    
                     <li>
-                        <a href="#uiElements" class="has-arrow"><i class="icon-diamond"></i><span><?php echo $this->lang->line('control_de_precios'); ?></span></a>
-                        <ul>
-                           <li><a href="<?php echo base_url();?>admin/master/regular_user_monthly_subscription"><?php echo $this->lang->line('regular_user_monthly_subscription');?> </a></li>
-                           <!-- <li><a href="<?php echo base_url();?>admin/master/monthly_subscription_for_company_users"><?php echo $this->lang->line('monthly_subscription_for_company_users');?> </a></li>
-                           <li><a href="<?php echo base_url();?>admin/master/boost_your_profile"><?php echo $this->lang->line('boost_your_profile');?> </a></li>
-                           <li><a href="<?php echo base_url();?>admin/master/additional_services"><?php echo $this->lang->line('additional_services');?> </a></li>
-                           <li><a href="<?php echo base_url();?>admin/master/banners"><?php echo $this->lang->line('banners');?> </a></li>
-                           <li><a href="<?php echo base_url();?>admin/master/taxes"><?php echo $this->lang->line('taxes');?> </a></li>
-                           <li><a href="<?php echo base_url();?>admin/master/cv"><?php echo $this->lang->line('cv');?> </a></li> -->
-
-                        </ul>
-                    </li>
-                    <!-- <li>
-                        <a href="#uiElements" class="has-arrow"><i class="icon-diamond"></i><span><?php echo $this->lang->line('manage_user') ?: 'Manage User';?></span></a>
+                        <a href="#uiElements" class="has-arrow"><i class="icon-diamond"></i><span><?php echo $this->lang->line('manage_users') ?: 'Manage Users';?></span></a>
                         <ul>
                           
                         <li>
-                        <a href="<?php echo base_url();?>admin/master/add_user" class=""><i class="icon-plus"></i><span><?php echo $this->lang->line('regular_user');?></span></a>
+                        <a href="<?php echo base_url();?>admin/master/add_user" class=""></i><span><?php echo $this->lang->line('regular_user');?></span></a>
                       
                        </li>
                        <?php $ur = $this->Common->getUserRole('internal');  foreach($ur as $urres){ ?>
                     <li>
-                    <a href="<?php echo base_url();?>admin/master/users/<?php echo $urres->slug; ?>" class=""><i class="icon-layers"></i><span><?php echo $this->lang->line($urres->name) ?: $urres->name;?></span></a>
+                    <a href="<?php echo base_url();?>admin/master/users/<?php echo $urres->slug; ?>" class=""><span><?php echo $this->lang->line($urres->name) ?: $urres->name;?></span></a>
                      
                     </li>
                 <?php } ?>
                         </ul>
-                    </li> -->
+                    </li>
                     <li>
-                        <a href="#uiElements" class="has-arrow"><i class="icon-diamond"></i><span><?php echo $this->lang->line('application_user') ;?></span></a>
+                        <a href="#uiElements" class="has-arrow"><i class="icon-diamond"></i><span><?php echo $this->lang->line('manage_stock');?></span></a>
                         <ul>
                           
-                       
-                       <?php $ur = $this->Common->getUserRole('application');  foreach($ur as $urres){ ?>
-                    <li>
-                    <a href="<?php echo base_url();?>admin/master/application_user/<?php echo $urres->slug; ?>" class=""><i class="icon-layers"></i><span><?php echo $this->lang->line($urres->name) ?: $urres->name;?></span></a>
-                     
-                    </li>
-                <?php } ?>
+                        <li>
+                        <a href="<?php echo base_url();?>admin/master/transfer_stock" class=""><span><?php echo $this->lang->line('transfer_stock');?></span></a>
+                      
+                       </li>
+                       <li>
+                        <a href="<?php echo base_url();?>admin/master/return_stock" class=""></i><span><?php echo $this->lang->line('return_stock');?></span></a>
+                      
+                       </li>
                         </ul>
-                    </li> 
+                    </li>
                     
                     <li>
-    <a href="#uiElements" class="has-arrow"><i class="icon-notebook"></i><span><?php echo $this->lang->line('statistics'); ?></span></a>
-    <ul>
-        <li>
-            <a href="#uiElements" class="has-arrow"><i class="icon-arrow-down"></i><?php echo $this->lang->line('general');?></a>
-            <!-- Add more nested items under "General" -->
-            <ul>
-                <li><a href="<?php echo base_url();?>admin/master/registered_users"><?php echo $this->lang->line('registered_users'); ?></a></li>
-                <li><a href="<?php echo base_url();?>admin/master/services"><?php echo $this->lang->line('services'); ?></a></li>
-                <li><a href="<?php echo base_url();?>admin/master/cart"><?php echo $this->lang->line('cart'); ?></a></li>
-
-            </ul>
-
-        </li>
-        <li>
-        <a href="#" ><i class="icon-key"></i><?php echo $this->lang->line('postal_codes');?></a>
-        </li>
-        <li>
-        <a href="<?php echo base_url();?>admin/master/papular" ><i class="icon-paper-plane"></i><?php echo $this->lang->line('popular');?></a>
-        </li>
-        <li>
-        <a href="#" ><i class="icon-heart"></i><?php echo $this->lang->line('days_and_times');?></a>
-        </li>
-        
-    </ul>
-</li>
-
-
-                    <li>
-                        <a href="<?php echo base_url();?>admin/master/reported_users" class=""><i class=" icon-cloud-upload"></i><span><?php echo $this->lang->line('reported_users');?></span></a>
-                    </li>
-                    <li>
-                         <a href="#" class=""><i class=" icon-symbol-female"></i><span><?php echo $this->lang->line('elite_users');?></span></a>
-                    </li>
-                    <!-- <li>
-                        <a href="<?php echo base_url();?>admin/master/categories" class=""><i class="icon-docs"></i><span><?php echo $this->lang->line('categorias');?></span></a>
-                    </li>
-                    <li>
-                        <a href="<?php echo base_url();?>admin/master/sub_category" class=""><i class="icon-directions"></i><span><?php echo $this->lang->line('subcategorias');?></span></a>
-                    </li> -->
-                    <li>
-                        <a href="#" class=""><i class=" icon-users"></i><span><?php echo $this->lang->line('activate_free_users');?></span></a>
-                    </li>
-                    <li>
-                        <a href="#" class=""><i class=" icon-user"></i><span><?php echo $this->lang->line('contact_users');?></span></a>
-                    </li>
-                    <li>
-                        <a href="#" class=""><i class=" icon-graduation"></i><span><?php echo $this->lang->line('rent_/_sale');?></span></a>
-                    </li>
-                    <li>
-                        <a href="<?php echo base_url();?>admin/master/earrings" class=""><i class=" icon-badge"></i><span><?php echo $this->lang->line('earrings');?></span></a>
-                    </li>
-
-                    <!-- <li>
-                        <a href="#uiElements" class="has-arrow"><i class="icon-arrow-right"></i><span><?php echo $this->lang->line('manage_news'); ?></span></a>
+                        <a href="#uiElements" class="has-arrow"><i class="icon-diamond"></i><span><?php echo $this->lang->line('manage_member');?></span></a>
                         <ul>
-                           <li><a href="<?php echo base_url();?>admin/master/news_categories"><?php echo $this->lang->line('news_categories');?> </a></li>
-                           <li><a href="<?php echo base_url();?>admin/master/news"><?php echo $this->lang->line('news');?> </a></li>
-
+                          
+                        <li>
+                        <a href="<?php echo base_url();?>admin/master/add_member" class=""><span><?php echo $this->lang->line('add_member');?></span></a>
+                      
+                       </li>
+                       
                         </ul>
-                    </li> -->
-                    <!-- <li>
-                        <a href="<?php echo base_url();?>admin/master/map" class=""><i class=" icon-badge"></i><span><?php echo $this->lang->line('map');?></span></a>
-                    </li> -->
-
+                    </li>
                     <li>
-
+                        <a href="#uiElements" class="has-arrow"><i class="icon-diamond"></i><span><?php echo $this->lang->line('manage_group');?></span></a>
+                        <ul>
+                          
+                        <li>
+                        <a href="<?php echo base_url();?>admin/master/add_group" class=""><span><?php echo $this->lang->line('add_group');?></span></a>
+                      
+                       </li>
+                       
+                        </ul>
+                    </li>
+                    
+                    <li>
+                        <a href="#uiElements" class="has-arrow"><i class="icon-diamond"></i><span><?php echo $this->lang->line('reports');?></span></a>
+                        <ul>
+                          
+                        <li>
+                        <a href="<?php echo base_url();?>admin/master/transfer_stock" class=""><span><?php echo $this->lang->line('branch_report');?></span></a>
+                      
+                       </li>
+                       <li>
+                        <a href="<?php echo base_url();?>admin/master/return_stock" class=""></i><span><?php echo $this->lang->line('stock_report');?></span></a>
+                      
+                       </li>
+                       <li>
+                        <a href="<?php echo base_url();?>admin/master/transfer_stock" class=""><span><?php echo $this->lang->line('member_report');?></span></a>
+                      
+                       </li>
+                       <li>
+                        <a href="<?php echo base_url();?>admin/master/return_stock" class=""></i><span><?php echo $this->lang->line('sale_report');?></span></a>
+                      
+                       </li>
+                       <li>
+                        <a href="<?php echo base_url();?>admin/master/return_stock" class=""></i><span><?php echo $this->lang->line('emi_report');?></span></a>
+                      
+                       </li>
+                        </ul>
+                    </li>
+        <!-- branchadminfild -->
+       
                 </ul>
             </nav>     
         </div>

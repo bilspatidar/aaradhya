@@ -220,7 +220,7 @@
   <input type="hidden" value="<?php echo API_DOMAIN; ?>api/user/company_user/" id="delete_end_point">
   <input type="hidden" value="<?php echo API_DOMAIN; ?>api/user/company_user_details" id="show_endpoint">
   <input type="hidden" value="admin/master/company_user_edit" id="edit_page_name">
-  <input type="hidden" value="admin/master/user_permission" id="permission_page_name">
+  <!-- <input type="hidden" value="admin/master/user_permission" id="permission_page_name"> -->
   <div class="col-lg-12 grid-margin stretch-card">
     <div class="card">
       <div class="card-body">
@@ -233,6 +233,20 @@
             <div class="col-md-3 form-group">
             <input type="text" id="filterName" name="name" placeholder="<?php echo $this->lang->line('name');?>" class="form-control">
             </div>
+            <div class="col-md-4">
+                <div class="form-group row">
+                <div class="col-sm-12">
+            <select name="branch_id" id="filterTwo" class="form-control select2"placeholder="<?php echo $this->lang->line('branch_name');?>">
+                <option value=""><?php echo $this->lang->line('select_option'); ?></option>
+                <?php $branchs = $this->Internal_model->get_branch();
+                foreach ($branchs as $branch) { ?>
+                    <option value="<?php echo $branch->id; ?>"><?php echo $branch->name; ?></option>
+                <?php } ?>
+            </select>
+        </div>
+    </div>
+</div>
+
             <!--<div class="col-md-3 form-group">
             <select id="filterStatus" name="status" class="form-control">
             <option value=""><?php echo $this->lang->line('select_status');?></option>
@@ -256,9 +270,9 @@
                 <th><?php echo $this->lang->line('name');?></th>
                 <th><?php echo $this->lang->line('last_name');?></th>
                 <th><?php echo $this->lang->line('email');?></th>
-                <th><?php echo $this->lang->line('cellular');?></th>
+                <th><?php echo $this->lang->line('mobile');?></th>
+                <th><?php echo $this->lang->line('branch_name');?></th>
                 <th><?php echo $this->lang->line('status');?></th>
-                <th><?php echo $this->lang->line('permision');?></th>
                 <th><?php echo $this->lang->line('profile_details');?></th>
                 <th><?php echo $this->lang->line('Action');?></th>
               </tr>
@@ -285,6 +299,7 @@
       { "data": "last_name", "orderable": true },
       { "data": "email", "orderable": true },
       { "data": "mobile", "orderable": true },
+      { "data": "branch_id", "orderable": true },
       {
         "data": "status",
         "orderable": true,
@@ -292,12 +307,7 @@
           return renderStatusBtn(data, type, row);
         }
       },
-      {
-        "data": null,
-        "render": function(data, type, row) {
-          return renderPermisionBtn(data, type, row);
-        }
-      },
+      
       {
         "data": null,
         "render": function(data, type, row) {

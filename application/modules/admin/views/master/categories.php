@@ -58,7 +58,7 @@
             <input type="text" id="filterName" name="name" placeholder="<?php echo $this->lang->line('name');?>" class="form-control">
             </div>
             <div class="col-md-3 form-group">
-            <select id="filterStatus" name="status" class="form-control">
+            <select id="filterStatus" name="status" class="form-control select2">
             <option value=""><?php echo $this->lang->line('select_status');?></option>
             <option value="Active"><?php echo $this->lang->line('active');?></option>
             <option value="Deactive"><?php echo $this->lang->line('inactive');?></option>

@@ -73,9 +73,22 @@ $lang['leader_name'] = 'Leader Name';
 $lang['branch_name'] = 'Branch Name';
 $lang['aadharf'] = 'Aadhar In Front';
 $lang['aadharb'] = 'Aadhar In Back';
+$lang['member_list'] = 'Member List';
+$lang['document_category'] ='Document Category';
+$lang['document_subcategory'] ='Document Sub Category';
+$lang['unit'] = 'Unit';
+$lang['images2'] = 'Images 2';
+$lang['images'] = 'Images';
+$lang['images'] = 'Images';
+$lang['images'] = 'Images';
+$lang['images'] = 'Images';
+$lang['images'] = 'Images';
+$lang['images'] = 'Images';
+$lang['images'] = 'Images';
+$lang['images'] = 'Images';
+$lang['images'] = 'Images';
 
-$lang['images'] = 'Images';
-$lang['images'] = 'Images';
+
 
 
 

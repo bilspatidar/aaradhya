@@ -1723,7 +1723,7 @@ public function company_user_list_post($role = '') {
     $limit = isset($request_data['limit']) ? $request_data['limit'] : 10; // Default limit to 10
     $filterData = isset($request_data['filterData']) ? $request_data['filterData'] : [];
 
-    $getTokenData = $this->is_authorized('superadmin'); // Authorization check
+	$getTokenData = $this->is_authorized(array('superadmin','branch_admin','field_executive','office_executive'));
     $offset = ($page - 1) * $limit;
 
     // Fetch total records for pagination

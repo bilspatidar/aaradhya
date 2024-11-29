@@ -52,27 +52,28 @@ class Group_model extends CI_Model {
     /**
      * Retrieve filtered group data with optional pagination and count
      */
-    public function get($id='',$filterData='') {
+    public function get($isCount = 'no', $id = '', $limit = 10, $offset = 0, $filterData = [], $role = '') {
         $this->db->select("*");
         $this->db->from($this->table);
-        if(!empty($id)) {
+    
+        if (!empty($id)) {
             $this->db->where($this->primaryKey, $id);
         }
-		if(isset($filterData['group_name']) && !empty($filterData['group_name'])){
-			$this->db->where('group_name',$filterData['group_name']);
-		}
-		if(isset($filterData['status'])){
-			$this->db->where('status',$filterData['status']);
-		}
-       
-        if($isCount=='yes'){
-            $all_res = $this->db->get();
-            return $all_res->num_rows();
-                
-           }
-           else{
-            $this->db->limit($limit, $page);
+    
+        if (!empty($filterData['group_name'])) {
+            $this->db->where('group_name', $filterData['group_name']);
+        }
+    
+        if (isset($filterData['status'])) {
+            $this->db->where('status', $filterData['status']);
+        }
+    
+        if ($isCount == 'yes') {
+            return $this->db->count_all_results(); // Efficient count query
+        } else {
+            $this->db->limit($limit, $offset); // Correct limit and offset
             return $this->db->get()->result();
-           }
+        }
     }
+    
 }

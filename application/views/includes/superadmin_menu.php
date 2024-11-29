@@ -49,7 +49,14 @@
                         <a href="<?php echo base_url();?>admin/master/configuration_setting" class=""></i><span><?php echo $this->lang->line('configuration_setting');?></span></a>
                       
                        </li>
-                       
+                       <li>
+                        <a href="<?php echo base_url();?>admin/master/document_category" class=""></i><span><?php echo $this->lang->line('document_category');?></span></a>
+                      
+                       </li>
+                       <li>
+                        <a href="<?php echo base_url();?>admin/master/document_subcategory" class=""></i><span><?php echo $this->lang->line('document_subcategory');?></span></a>
+                      
+                       </li>
                         </ul>
                     </li>
                     <li>

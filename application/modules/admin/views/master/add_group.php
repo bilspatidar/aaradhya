@@ -79,16 +79,21 @@
         </div>
     </div>
 </div>
-
-    <!-- Leader Name -->
-    <div class="col-md-4">
-      <div class="form-group row">
-        <div class="col-sm-12">
-          <label class="col-form-label"><?php echo $this->lang->line('leader_name');?></label>
-          <input type="text" class="form-control" name="group_leader-name" />
+<div class="col-md-4">
+                <div class="form-group row">
+                <div class="col-sm-12">
+            <label class="col-form-label"><?php echo $this->lang->line('leader_name'); ?></label>
+            <select name="group_leader-name"  class="form-control select2">
+                <option value=""><?php echo $this->lang->line('select_option'); ?></option>
+                <?php $members = $this->Internal_model->get_branch_member ();
+                foreach ($members as $member) { ?>
+                    <option value="<?php echo $member->id; ?>"><?php echo $member->name; ?></option>
+                <?php } ?>
+            </select>
         </div>
-      </div>
     </div>
+</div>
+   
 
     <!-- Group Images (Multiple) -->
     <div class="col-md-4">
@@ -142,21 +147,9 @@
         <form id="filterForm">
           <div class="row">
             <div class="col-md-3 form-group">
-            <input type="text" id="filterName" name="name" placeholder="<?php echo $this->lang->line('name');?>" class="form-control">
+            <input type="text" id="filterGroupName" name="group_name" placeholder="<?php echo $this->lang->line('name');?>" class="form-control">
             </div>
-            <div class="col-md-4">
-                <div class="form-group row">
-                <div class="col-sm-12">
-            <select name="branch_id" id="filterTwo" class="form-control select2"placeholder="<?php echo $this->lang->line('branch_name');?>">
-                <option value=""><?php echo $this->lang->line('select_option'); ?></option>
-                <?php $branchs = $this->Internal_model->get_branch();
-                foreach ($branchs as $branch) { ?>
-                    <option value="<?php echo $branch->id; ?>"><?php echo $branch->name; ?></option>
-                <?php } ?>
-            </select>
-        </div>
-    </div>
-</div>
+           
 
             <!--<div class="col-md-3 form-group">
             <select id="filterStatus" name="status" class="form-control">

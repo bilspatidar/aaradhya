@@ -299,7 +299,7 @@
       { "data": "last_name", "orderable": true },
       { "data": "email", "orderable": true },
       { "data": "mobile", "orderable": true },
-      { "data": "branch_id", "orderable": true },
+      { "data": "branch_name", "orderable": true },
       {
         "data": "status",
         "orderable": true,

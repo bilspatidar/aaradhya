@@ -193,6 +193,7 @@ function initializeDataTable() {
              // Include additional parameters for filtering
               var filterData = {
                   name: $('#filterName').val(),
+                  group_name: $('#filterGroupName').val(),
                   branch_id: $('#filterTwo').val(),
                   status: $('#filterStatus').val(),
                   from_date: $('#filterFromDate').val(),

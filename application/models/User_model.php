@@ -97,9 +97,9 @@ class User_model extends CI_Model {
         return $this->db->affected_rows();
     }
 	public function get_company_user_list($isCount = 'no', $id = '', $limit = 10, $offset = 0, $filterData = [], $role = '') {
-		$this->db->select("*");
-		$this->db->from($this->table);
-	
+        $this->db->select("$this->table.*,(branch.name) as branch_name");
+        $this->db->from($this->table);
+		$this->db->join('branch',"branch.id=$this->table.branch_id",'left');
 		// ID filter
 		if (!empty($id)) {
 			$this->db->where($this->primaryKey, $id);

@@ -73,7 +73,10 @@
                         <a href="<?php echo base_url();?>admin/master/add_member" class=""><span><?php echo $this->lang->line('add_member');?></span></a>
                       
                        </li>
-                       
+                       <li>
+                        <a href="<?php echo base_url();?>admin/master/member_list" class=""><span><?php echo $this->lang->line('member_list');?></span></a>
+                      
+                       </li>
                         </ul>
                     </li>
                     <li>

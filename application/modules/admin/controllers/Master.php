@@ -82,7 +82,7 @@ public function cv (){
 
 public function add_user (){
     
-  is_login(array('superadmin','admin','branch_admin'));
+  is_login(array('superadmin','admin','branch_admin','field_executive','office_executive'));
   $header_data['page_title'] = $this->lang->line('users');
   $this->load->view('includes/header',$header_data);
   $this->load->view('master/regular_user');
@@ -90,7 +90,7 @@ public function add_user (){
 }
 public function users ($role=''){
     
-  is_login(array('superadmin','admin','branch_admin'));
+  is_login(array('superadmin','admin','branch_admin','field_executive','office_executive'));
   $header_data['page_title'] = $this->lang->line('users');
   $page_data['role'] = $role;
   $this->load->view('includes/header',$header_data);
@@ -100,7 +100,7 @@ public function users ($role=''){
 
 public function application_user ($role=''){
     
-  is_login(array('superadmin','admin','branch_admin'));
+  is_login(array('superadmin','admin','branch_admin','field_executive','office_executive'));
   $header_data['page_title'] = $this->lang->line('application_user');
   $page_data['role'] = $role;
   $this->load->view('includes/header',$header_data);
@@ -185,7 +185,7 @@ public function news(){
 
 public function my_profile(){
     
-  is_login(array('superadmin','admin'));
+  is_login(array('superadmin','admin','branch_admin','field_executive','office_executive'));
   $header_data['page_title'] = $this->lang->line('my_profile');
   $this->load->view('includes/header',$header_data);
   $this->load->view('master/my_profile');
@@ -193,7 +193,7 @@ public function my_profile(){
 }
 public function setting(){
     
-  is_login(array('superadmin','admin'));
+  is_login(array('superadmin','admin','branch_admin','field_executive','office_executive'));
   $header_data['page_title'] = $this->lang->line('setting');
   $this->load->view('includes/header',$header_data);
   $this->load->view('master/setting');
@@ -217,15 +217,23 @@ public function products(){
       $this->load->view('master/products',$header_data);
       $this->load->view('includes/footer');
 }
+
 public function document_subcategory(){
     
   is_login(array('superadmin','admin'));
-  $header_data['page_title'] = "Document Subcategory";
+  $header_data['page_title'] = $this->lang->line('document_subcategory');
   $this->load->view('includes/header');
   $this->load->view('master/document_subcategory',$header_data);
   $this->load->view('includes/footer');
 }
-
+public function document_category(){
+    
+  is_login(array('superadmin','admin'));
+  $header_data['page_title'] = $this->lang->line('document_category');
+  $this->load->view('includes/header');
+  $this->load->view('master/document_category',$header_data);
+  $this->load->view('includes/footer');
+}
 public function sub_category(){
     
   is_login(array('superadmin','admin'));
@@ -335,7 +343,7 @@ public function cities(){
   }
   public function profile_details(){
     
-    is_login(array('superadmin','admin'));
+    is_login(array('superadmin','admin','branch_admin','field_executive','office_executive'));
     $header_data['page_title'] = $this->lang->line('profile_details');
     $this->load->view('includes/header',$header_data);
     $this->load->view('master/profile_details');
@@ -345,7 +353,7 @@ public function cities(){
   
   public function branch_list(){
     
-    is_login(array('superadmin','admin'));
+    is_login(array('superadmin','admin','branch_admin','field_executive','office_executive'));
     $header_data['page_title'] = $this->lang->line('branch_list');
     $this->load->view('includes/header',$header_data);
     $this->load->view('master/branch_list');
@@ -353,21 +361,28 @@ public function cities(){
   }
 
   public function add_member(){
-    is_login(array('superadmin','admin','branch_admin'));
+    is_login(array('superadmin','admin','branch_admin','field_executive','office_executive'));
     $header_data['page_title'] = $this->lang->line('add_member');
     $this->load->view('includes/header',$header_data);
     $this->load->view('master/add_member');
     $this->load->view('includes/footer');
   }
+  public function member_list(){
+    is_login(array('superadmin','admin','branch_admin','field_executive','office_executive'));
+    $header_data['page_title'] = $this->lang->line('add_member');
+    $this->load->view('includes/header',$header_data);
+    $this->load->view('master/member_list');
+    $this->load->view('includes/footer');
+  }
   public function add_group(){
-    is_login(array('superadmin','admin','branch_admin'));
+    is_login(array('superadmin','admin','branch_admin','field_executive','office_executive'));
     $header_data['page_title'] = $this->lang->line('add_group');
     $this->load->view('includes/header',$header_data);
     $this->load->view('master/add_group');
     $this->load->view('includes/footer');
   }
   public function invoceproduct(){
-    is_login(array('superadmin','admin','branch_admin'));
+    is_login(array('superadmin','admin','branch_admin','field_executive','office_executive'));
     $header_data['page_title'] = $this->lang->line('invoce');
     $this->load->view('includes/header',$header_data);
     $this->load->view('master/invoceproduct');

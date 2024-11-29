@@ -2,16 +2,63 @@
 require APPPATH . '/libraries/REST_Controller.php';
 use Restserver\Libraries\REST_Controller;
 
-class Group extends REST_Controller {
+class Product extends REST_Controller {
 
     public function __construct() {
         $this->cors_header();
         parent::__construct();
-        $this->load->model('group_model'); 
+        $this->load->model('product_model'); 
         $this->load->helper('security');
     }
 
-    public function add_group_post($params='') {
+    // Branch start
+    public function product_list_post() {
+        $input_data = file_get_contents('php://input');
+        $request_data = json_decode($input_data, true);
+    
+        $id = $this->input->get('id') ? $this->input->get('id') : 0;
+    
+        $page = isset($request_data['page']) ? $request_data['page'] : 1; // Default to page 1 if not provided
+        $limit = isset($request_data['limit']) ? $request_data['limit'] : 10; // Default limit to 10 if not provided
+        $filterData = isset($request_data['filterData']) ? $request_data['filterData'] : [];
+    
+        $getTokenData = $this->is_authorized(array('superadmin','branch_admin'));
+        $offset = ($page - 1) * $limit;
+    
+        $totalRecords =  $this->product_model->get('yes', $id, $limit, $offset, $filterData);
+       
+        $data =  $this->product_model->get('no', $id, $limit, $offset, $filterData);
+    
+        $totalPages = ceil($totalRecords / $limit);
+    
+        $response = [
+            'status' => true,
+            'data' => $data,
+            'pagination' => [
+                'page' => $page,
+                'totalPages' => $totalPages,
+                'totalRecords' => $totalRecords
+            ],
+            'message' => 'Site fetched successfully.'
+        ];
+        $this->response($response, REST_Controller::HTTP_OK); 
+    }
+ 
+
+
+    public function product_details_get(){
+        $id = $this->input->get('id') ? $this->input->get('id') : 0;
+        $getTokenData = $this->is_authorized(array('superadmin','branch_admin'));
+        $data =  $this->branch_model->show($id);
+        $response = [
+            'status' => true,
+            'data' => $data,
+            'message' => 'Site fetched successfully.'
+        ];
+        $this->response($response, REST_Controller::HTTP_OK); 
+    }
+
+    public function product_add_post($params='') {
         if($params=='add') {
             $getTokenData = $this->is_authorized(array('superadmin','branch_admin'));
             $usersData = json_decode(json_encode($getTokenData), true);
@@ -20,9 +67,8 @@ class Group extends REST_Controller {
             // print_r ($getTokenData);
             // exit();
             // set validation rules
-            $this->form_validation->set_rules('group_name', 'Name', 'trim|required|xss_clean|alpha_numeric|min_length[3]');
-            $this->form_validation->set_rules('group_code', 'Code', 'trim|required|xss_clean|alpha_numeric|min_length[3]');
-        
+            $this->form_validation->set_rules('name', 'Name', 'trim|required|xss_clean|alpha_numeric_spaces');
+
             if ($this->form_validation->run() === false) {
                 $array_error = array_map(function ($val) {
                     return str_replace(array("\r", "\n"), '', strip_tags($val));
@@ -34,40 +80,60 @@ class Group extends REST_Controller {
                     'errors' =>$array_error
                 ], REST_Controller::HTTP_BAD_REQUEST,'','error');
             } else {
-                  // set variables from the form
-                  $data['group_name'] = $this->input->post('group_name',TRUE);
-                  $data['group_code'] = $this->input->post('group_code',TRUE);
-                  $data['group_location'] = $this->input->post('group_location',TRUE);
-                  $data['group_address'] = $this->input->post('group_address',TRUE);
-                  $data['group_leader-name'] = $this->input->post('group_leader-name',TRUE);
-                  $data['city'] = $this->input->post('city',TRUE);
-                  $data['country'] = $this->input->post('country',TRUE);
-                  $data['state'] = $this->input->post('state',TRUE);
-                  
-                  
-                  if(!empty($_POST['image'])){
-                      $base64_image = $_POST['image'];
-                      $quality = 90;
-                      $radiusConfig = [
-                          'resize' => [
-                          'width' => 500,
-                          'height' => 300
-                          ]
-                       ];
-                      $uploadFolder = 'groups'; 
-      
-                      $data['image'] = $this->upload_media->upload_and_save($base64_image, $quality, $radiusConfig, $uploadFolder);
-                      
-                  }
+                // set variables from the form
+                $data['name'] = $this->input->post('name',TRUE);
+				$data['metal'] = $this->input->post('metal',TRUE);
+                $data['short_name'] = $this->input->post('short_name',TRUE);
+                $data['barcode'] = $this->input->post('barcode',TRUE);
+				$data['code'] = $this->input->post('code',TRUE);
+				$data['weight'] = $this->input->post('weight',TRUE);
+				$data['other_weight'] = $this->input->post('other_weight',TRUE);
+                $data['making_charge'] = $this->input->post('making_charge',TRUE);
+                $data['gst'] = $this->input->post('gst',TRUE);
+                $data['category_id'] = $this->input->post('category_id',TRUE);
+                $data['unit'] = $this->input->post('unit',TRUE);
+                $data['other_charge'] = $this->input->post('other_charge',TRUE);
+              
+                if(!empty($_POST['image1'])){
+					$base64_image = $_POST['image1'];
+					$quality = 90;
+					$radioConfig = [
+						'resize' => [
+						'width' => 500,
+						'height' => 300
+						]
+					 ];
+					$uploadFolder = 'products'; 
+
+					$data['image1'] = $this->upload_media->upload_and_save($base64_image, $quality, $radioConfig, $uploadFolder);
+					
+				}
+
+
+				if(!empty($_POST['image2'])){
+					$base64_image = $_POST['image2'];
+					$quality = 90;
+					$radioConfig = [
+						'resize' => [
+						'width' => 500,
+						'height' => 300
+						]
+					 ];
+					$uploadFolder = 'products'; 
+
+					$data['image2'] = $this->upload_media->upload_and_save($base64_image, $quality, $radioConfig, $uploadFolder);
+					
+				}
+				
                 $data['status'] = 'Active';
                 $data['added'] = date('Y-m-d H:i:s');
                 $data['addedBy'] = $session_id;
                 
-                if ($res = $this->group_model->create($data)) {
+                if ($res = $this->product_model->create($data)) {
                     // branch creation ok
                     $final = array();
                     $final['status'] = true;
-                    $final['data'] = $this->group_model->get($res);
+                    $final['data'] = $this->product_model->get($res);
                     $final['message'] = 'Site created successfully.';
                     $this->response($final, REST_Controller::HTTP_OK);
                 } else {
@@ -80,7 +146,7 @@ class Group extends REST_Controller {
         }
         // method for updating branch
         if ($params == 'update') {
-            $getTokenData = $this->is_authorized(array('superadmin','branch_admin'));
+            $getTokenData = $this->is_authorized('superadmin');
             $usersData = json_decode(json_encode($getTokenData), true);
             $session_id = $usersData['data']['id'];
         
@@ -155,7 +221,7 @@ class Group extends REST_Controller {
                     // Branch update ok
                     $final = array();
                     $final['status'] = true;
-                    $final['data'] = $this->branch_model->get($id);
+                    $final['data'] = $this->product_model->get($id);
                     $final['message'] = 'Site updated successfully.';
                     $this->response($final, REST_Controller::HTTP_OK);
                 } else {
@@ -169,91 +235,17 @@ class Group extends REST_Controller {
             }
         }
     }
-    public function group_list_post($role = '') {
-        // Input data
-        $input_data = file_get_contents('php://input');
-        $request_data = json_decode($input_data, true);
-    
-        // Parameters
-        $id = $this->input->get('id') ? $this->input->get('id') : 0;
-        $role = !empty($role) ? $role : (isset($request_data['user_type']) ? $request_data['user_type'] : '');
-    
-        $page = isset($request_data['page']) ? $request_data['page'] : 1; // Default to page 1
-        $limit = isset($request_data['limit']) ? $request_data['limit'] : 10; // Default limit to 10
-        $filterData = isset($request_data['filterData']) ? $request_data['filterData'] : [];
-    
-        $getTokenData = $this->is_authorized(array('superadmin','branch_admin'));
-        $offset = ($page - 1) * $limit;
-    
-        // Fetch total records for pagination
-        $totalRecords = $this->group_model->get('yes', $id, $limit, $offset, $filterData, $role);
-        if (is_array($totalRecords)) {
-            $totalRecords = count($totalRecords); // Use count() to get the number of records
-        }
-        // Fetch paginated data
-        $data = $this->group_model->get('no', $id, $limit, $offset, $filterData, $role);
-    
-        // Total pages calculation
-        $totalPages = ceil($totalRecords / $limit);
-    
-        // Build response
-        $response = [
-            'status' => true,
-            'data' => $data,
-            'pagination' => [
-                'page' => $page,
-                'totalPages' => $totalPages,
-                'totalRecords' => $totalRecords
-            ],
-            'message' => 'Usuario de la empresa obtenido correctamente.'
-        ];
-        $this->response($response, REST_Controller::HTTP_OK); 
-    }
-   
 
-  
-    public function group_details_get(){
-        $id = $this->input->get('id') ? $this->input->get('id') : 0;
-        $getTokenData = $this->is_authorized(array('superadmin','branch_admin'));
-        $data =  $this->group_model->show($id);
-        $response = [
-            'status' => true,
-            'data' => $data,
-            'message' => 'El usuario de la empresa fetched correctamente.'
-        ];
-        $this->response($response, REST_Controller::HTTP_OK); 
-    }
+    public function product_delete($id) {
+        $this->is_authorized(array('superadmin','branch_admin'));
 
-    public function group_delete($id) {
-         $this->is_authorized(array('superadmin','branch_admin'));
-        $response = $this->group_model->delete($id);
-    
+            $response = $this->product_model->delete($id);
+
         if ($response) {
-            $this->response(['status' => true, 'message' => 'regular user deleted successfully.'], REST_Controller::HTTP_OK);
+            $this->response(['status' => true, 'message' => 'Site deleted successfully.'], REST_Controller::HTTP_OK);
         } else {
             $this->response(['status' => false, 'message' => 'Not deleted'], REST_Controller::HTTP_BAD_REQUEST);
         }
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    // Branch end
 }
-?>

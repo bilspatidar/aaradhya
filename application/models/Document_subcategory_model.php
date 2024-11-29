@@ -3,7 +3,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Document_subcategory_model extends CI_Model {
 
-    protected $table      = 'document_subcategory';
+    protected $table      = 'document_subcategories';
     protected $primaryKey = 'id';
 
     /**
@@ -32,19 +32,21 @@ class Document_subcategory_model extends CI_Model {
     }
 
     public function update($data, $id) {
-        $response = $this->db->update($this->table, $data, array($this->primaryKey=>$id));
+        $response = $this->db->update($this->table, $data, array($this->primaryKey => $id));
         return $this->db->affected_rows();
     }
 
     public function delete($id) {
-        $this->db->delete($this->table, array($this->primaryKey=>$id));
+        $this->db->delete($this->table, array($this->primaryKey => $id));
         return $this->db->affected_rows();
     }
 
+   
+
     public function get($isCount = '',$id='',$limit='',$page = '',$filterData='')  {
-        $this->db->select("$this->table.*,(document_category.name) as category_name");
+        $this->db->select("$this->table.*,(document_categories.name) as document_name");
         $this->db->from($this->table);
-		$this->db->join('document_category',"document_category.id=$this->table.document_category_id");
+		$this->db->join('document_categories',"document_categories.id=$this->table.document_category_id");
         if(!empty($id)) {
             $this->db->where($this->table.'.'.$this->primaryKey, $id);
         }
@@ -69,14 +71,6 @@ class Document_subcategory_model extends CI_Model {
             return $this->db->get()->result();
            }
     }
-	public function document_subcategory_parent($id='') {
-		$this->db->select("$this->table.*,(document_category.name) as category_name");
-        $this->db->from($this->table);
-		$this->db->join('document_category',"document_category.id=$this->table.document_category_id");
-        if(!empty($id)) {
-            $this->db->where($this->table.'.'.'document_category_id', $id);
-        }
-		$this->db->order_by($this->table.'.'.$this->primaryKey,'desc');
-        return $this->db->get()->result();
-    }
+	
 }
+

@@ -34,14 +34,14 @@ class Admin extends CI_Controller {
 
 
     public function change_password(){
-      is_login(array('superadmin','admin','agent','employee','manager'));
+      is_login(array('superadmin','admin','branch_admin','field_executive','office_executive','manager'));
       $this->load->view('includes/header');
       $this->load->view('change_password');
       $this->load->view('includes/footer');
     }
 
     public function profile(){
-      is_login(array('superadmin','admin','agent','employee','manager'));
+      is_login(array('superadmin','admin','branch_admin','field_executive','office_executive','manager'));
       
      $data['user_id'] = $user_id = $_SESSION['user_details']['id'];
 
@@ -51,7 +51,7 @@ class Admin extends CI_Controller {
     }
 
     public function index(){
-      is_login(array('superadmin','admin','agent','employee','manager'));
+      is_login(array('superadmin','admin','branch_admin','field_executive','office_executive','manager'));
       $this->load->view('includes/header');
       $this->load->view('index');
       $this->load->view('includes/footer');

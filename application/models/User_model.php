@@ -49,7 +49,7 @@ class User_model extends CI_Model {
 	}
 
 
-	
+
 	public function get_permission_by_module($module_name, $user_id) {ini_set('display_errors', 1);
 		// Query to check if the permission exists for the given module and user
 		// $this->db->where('module_name', $module_name);
@@ -96,6 +96,38 @@ class User_model extends CI_Model {
         $this->db->delete($this->table, array($this->primaryKey=>$id));
         return $this->db->affected_rows();
     }
+	public function get_company_user_list($isCount = 'no', $id = '', $limit = 10, $offset = 0, $filterData = [], $role = '') {
+        $this->db->select("$this->table.*,(branch.name) as branch_name");
+        $this->db->from($this->table);
+		$this->db->join('branch',"branch.id=$this->table.branch_id",'left');
+		// ID filter
+		if (!empty($id)) {
+			$this->db->where($this->primaryKey, $id);
+		}
+	
+		// Name filter
+		if (isset($filterData['name']) && !empty($filterData['name'])) {
+			$this->db->like('name', $filterData['name']); // Partial match
+		}
+	
+		// Branch ID filter
+		if (isset($filterData['branch_id']) && !empty($filterData['branch_id'])) {
+			$this->db->where('branch_id', $filterData['branch_id']);
+		}
+	
+		// Role filter
+		if (!empty($role)) {
+			$this->db->where('user_type', $role);
+		}
+	
+		// Check if count is required
+		if ($isCount === 'yes') {
+			return $this->db->count_all_results(); // Return total record count
+		} else {
+			$this->db->limit($limit, $offset);
+			return $this->db->get()->result(); // Return filtered records
+		}
+	}
 	
 	public function member_profile_get($isCount = '',$id='',$limit='',$page = '',$filterData=''){
 		$this->db->select("$this->table.id, $this->table.name, $this->table.email, $this->table.mobile, $this->table.password, $this->table.company_name, $this->table.postal_code, $this->table.country_id, $this->table.state_id, $this->table.city_id, $this->table.street_address, $this->table.street_address2, $this->table.business_type_id, $this->table.business_category_id, $this->table.business_subcategory_id, $this->table.skypeID, $this->table.websiteURL, $this->table.business_registered, $this->table.user_type, $this->table.merchant_pay_in_charge, $this->table.merchant_pay_out_charge, $this->table.settelment_charge, $this->table.turnover, $this->table.chargeback_percentage, $this->table.status, $this->table.added, $this->table.addedBy, $this->documents.document_number, $this->documents.document_category_id, $this->documents.document_sub_category_id, $this->documents.title, $this->documents.document_front_file, $this->documents.document_back_file, $this->invoice.amount, $this->invoice.paid_amount, $this->invoice.wallet_amount, $this->invoice.reward_point, $this->invoice.payment_mode_id, $this->invoice.invoice_type, $this->invoice.invoice_number, $this->invoice.attachment, $this->invoice.notes, $this->invoice.shipping_address");

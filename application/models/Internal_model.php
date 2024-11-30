@@ -21,7 +21,7 @@ class Internal_model extends CI_Model {
 
     public function get_document_category() {
         $this->db->select("*");
-        $this->db->from($this->table); 
+        $this->db->from('document_categories');
         $this->db->where('status','Active'); 
         return $this->db->get()->result();
     }
@@ -514,5 +514,15 @@ public function update_status($user_id=''){
         $this->db->where('status', 'Active');
         return $this->db->get()->result();
     }
-
+    public function get_branch_member($user_type = '') {
+        $this->db->select('*');
+        $this->db->from('users');
+        $this->db->where('status', 'Active');
+        
+        // Sirf customer ka data dikhana hai
+        $this->db->where('user_type', 'customer');
+        
+        return $this->db->get()->result();
+    }
+    
 }

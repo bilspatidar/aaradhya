@@ -85,6 +85,7 @@ class Branch extends REST_Controller {
                     $data['name'] = $name;
                 }
 				$data['branch_phone'] = $this->input->post('branch_phone',TRUE);
+                $data['branch_phone'] = $this->input->post('branch_phone',TRUE);
                 $data['branch_code'] = $this->input->post('branch_code',TRUE);
 				$data['branch_email'] = $this->input->post('branch_email',TRUE);
 				$data['branch_address'] = $this->input->post('branch_address',TRUE);

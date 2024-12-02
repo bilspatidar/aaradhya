@@ -112,7 +112,9 @@ $token = $_SESSION['user_details']['access_token'];
   background-color: #22252a; /* Dark background color for multiple selection */
   color: #fd7e14; /* Text color */
 }
-
+.select2-container--default.select2-container--focus .select2-selection--multiple{
+    border: solid white 1px;
+}
 /* Selected options background color in multiple selection */
 .select2-container--default .select2-selection--multiple .select2-selection__choice {
   background-color: #22252a; /* Darker background for selected options */

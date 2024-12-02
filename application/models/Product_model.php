@@ -6,6 +6,9 @@ class Product_model extends CI_Model {
     protected $table      = 'products'; // Make sure to change 'branch' to the actual table name for the Branch entity.
     protected $primaryKey = 'id';
 
+    protected $table2      = 'stock_transfer'; // Make sure to change 'branch' to the actual table name for the Branch entity.
+    protected $primaryKey2 = 'id';
+
     /**
      * __construct function.
      * 
@@ -73,7 +76,84 @@ class Product_model extends CI_Model {
 			return $this->db->get()->result();
 		   }
 		} 
-	}
-	
 
+        public function transfer_stock_create($data) {
+            $this->db->insert($this->table2, $data);
+            return $this->db->insert_id(); 
+        }
+       
+        public function transfer_stock_product_create($data) {
+            $this->db->insert('transfer_product', $data);
+            return $this->db->insert_id(); 
+        }
+
+        public function transfer_stock_show($id) {
+            $this->db->select("*");
+            $this->db->from($this->table2);
+            if(!empty($id)) {
+                $this->db->where($this->primaryKey2, $id);
+            }
+            return $this->db->get()->result();
+        }
+    
+        public function transfer_stock_update($data, $id) {
+            $response = $this->db->update($this->table2, $data, array($this->primaryKey2=>$id));
+            return $this->db->affected_rows();
+        }
+    
+        public function transfer_stock_delete($id) {
+            $this->db->delete($this->table2, array($this->primaryKey2=>$id));
+            return $this->db->affected_rows();
+        }
+    
+       
+    public function transfer_stock_get($isCount = '',$id='',$limit='',$page = '',$filterData='') {
+                
+        $this->db->select("$this->table2.*, branch.name as branch_name, COUNT(transfer_product.id) as transfer_product_count");
+        $this->db->from($this->table2);
+        $this->db->join('branch', "branch.id = $this->table2.branch_id", 'left');
+        $this->db->join('transfer_product', 'transfer_product.stock_transfer_id = ' . $this->table2 . '.id', 'left');
+        
+        $this->db->group_by($this->table2 . '.id'); 
+        
+     
+        
+                if(!empty($id)) {
+                    $this->db->where($this->primaryKey2, $id);
+                }
+                
+                if(isset($filterData['branch_id']) && !empty($filterData['branch_id'])){
+                    $this->db->like('branch_id', $filterData['branch_id']);
+                }
+            
+                if(isset($filterData['status']) && !empty($filterData['status'])){
+                    $this->db->where('status', $filterData['status']);
+                }
+                
+                $this->db->order_by($this->primaryKey2, 'desc');
+                
+                
+                if($isCount=='yes'){
+                $all_res = $this->db->get();
+                return $all_res->num_rows();
+                    
+               }
+               else{
+                $this->db->limit($limit, $page);
+                return $this->db->get()->result();
+               }
+            } 
+
+
+        }
+
+
+
+
+
+
+
+	
+	
+  
 

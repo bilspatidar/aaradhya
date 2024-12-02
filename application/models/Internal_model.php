@@ -524,5 +524,13 @@ public function update_status($user_id=''){
         
         return $this->db->get()->result();
     }
-    
+    public function get_product($id='') {
+        $this->db->select("*");
+        $this->db->from('products');
+		if(!empty($id) && ($id)>0){  
+        $this->db->where("id", $id);
+		}
+        $this->db->where("status", 'Active');
+        return $this->db->get()->result();
+    }
 }

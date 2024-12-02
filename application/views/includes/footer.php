@@ -277,7 +277,7 @@ function renderPermisionBtn(data, type, row) {
 
     // Add edit button with icon
     buttonsHtml += '<button type="button" class="btn btn-info mb-2 permission-btn" data-id="' + row.id + '" title="Permission">' +
-    '<span class="sr-only">Delete</span> <i class="fa fa-lock"></i></button>';
+    '<span class="sr-only">Delete</span> view</button>';
 
     return buttonsHtml;
 }

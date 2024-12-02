@@ -1,100 +1,109 @@
-<style>
-  .container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    padding: 20px;
-  }
 
-  /* Main Content */
-  .main {
-    flex: 3;
-    background: #22252a;
-    border-radius: 10px;
-    padding: 20px;
-  }
+  <style>
+    /* General Styles */
+  
+    .container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      padding: 20px;
+    }
 
-  .topbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
-  }
+    /* Main Content */
+    .main {
+      flex: 3;
+      background: #22252a;
+      border-radius: 10px;
+      padding: 20px;
+      width: 100%;
+    }
 
-  .search {
-    width: 60%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-  }
+    .topbar {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
 
-  .actions .btn {
-    padding: 10px 20px;
-    background: #ff9900;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-  }
+    .search {
+      flex: 1;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      margin-bottom: 10px;
+    }
 
-  .categories {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 20px;
-  }
+    .actions .btn {
+      padding: 10px 20px;
+      background: #ff9900;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-left:10px;
+      margin-bottom:18px;
+    }
 
-  .category {
-    padding: 10px 20px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    cursor: pointer;
-    background: #f8f8f8;
-  }
+    .categories {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
 
-  .category.active {
-    background: #ff9900;
-    color: #fff;
-  }
+    .category {
+      padding: 10px 20px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      cursor: pointer;
+      background: #f8f8f8;
+    }
 
-  .product-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 20px;
-  }
+    .category.active {
+      background: #ff9900;
+      color: #fff;
+    }
 
-  .product-card {
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    overflow: hidden;
-    text-align: center;
-    background: #fff;
-    padding: 10px;
-    transition: transform 0.3s ease;
-  }
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 20px;
+    }
 
-  .product-card:hover {
-    transform: scale(1.05);
-  }
+    .product-card {
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      overflow: hidden;
+      text-align: center;
+      background: #fff;
+      padding: 10px;
+      transition: transform 0.3s ease;
+    }
 
-  .product-image {
-    width: 100%;
-    height: 150px;
-    object-fit: cover;
-    border-bottom: 1px solid #ccc;
-  }
+    .product-card:hover {
+      transform: scale(1.05);
+    }
 
-  .product-name {
-    font-size: 18px;
-    margin: 10px 0;
-  }
+    .product-image {
+      width: 100%;
+      height: 150px;
+      object-fit: cover;
+      border-bottom: 1px solid #ccc;
+    }
 
-  .product-price {
-    color: #ff9900;
-    font-weight: bold;
-  }
+    .product-name {
+      font-size: 18px;
+      margin: 10px 0;
+    }
 
-  /* Cart Section */
-  .cart {
+    .product-price {
+      color: #ff9900;
+      font-weight: bold;
+    }
+
+    /* Cart Section */
+    .cart {
     flex: 1;
     background: #fff;
     border-radius: 10px;
@@ -221,7 +230,22 @@
   .remove-btn:hover {
     background-color: #c82333;
   }
-</style>
+
+    /* Responsive Styles */
+    @media (max-width: 768px) {
+      .container {
+        flex-direction: column;
+      }
+
+      .main, .cart {
+        width: 100%;
+      }
+
+      .categories {
+        justify-content: space-between;
+      }
+    }
+  </style>
 
   <div class="container">
     <!-- Main Content -->
@@ -274,62 +298,7 @@
     </div>
   </aside>
   </div>
-  <script>
-  // References to DOM elements
-  const showFormBtn = document.getElementById('showFormBtn');
-  const addItemForm = document.getElementById('addItemForm');
-  const addItemBtn = document.getElementById('addItemBtn');
-  const cartItems = document.getElementById('cartItems');
-  const subtotalEl = document.getElementById('subtotal');
-  const taxEl = document.getElementById('tax');
-  const payableAmountEl = document.getElementById('payableAmount');
 
-  let subtotal = 0;
-  const taxRate = 0.1; // 10% tax
-
-  // Show the Add Item form
-  showFormBtn.addEventListener('click', () => {
-    addItemForm.style.display = addItemForm.style.display === 'block' ? 'none' : 'block';
-  });
-
-  // Add item to the cart
-  addItemBtn.addEventListener('click', () => {
-    const itemName = document.getElementById('itemName').value;
-    const itemPrice = parseFloat(document.getElementById('itemPrice').value);
-
-    if (itemName && itemPrice) {
-      // Create new item element
-      const item = document.createElement('div');
-      item.classList.add('cart-item');
-      item.innerHTML = `
-        ${itemName} - $${itemPrice.toFixed(2)}
-        <button class="remove-btn" onclick="removeItem(this, ${itemPrice})">Remove</button>
-      `;
-      cartItems.appendChild(item);
-
-      // Update subtotal and total
-      subtotal += itemPrice;
-      updateTotal();
-    }
-  });
-
-  // Remove item from the cart
-  function removeItem(button, itemPrice) {
-    button.parentElement.remove();
-    subtotal -= itemPrice;
-    updateTotal();
-  }
-
-  // Update subtotal and total
-  function updateTotal() {
-    const tax = subtotal * taxRate;
-    const total = subtotal + tax;
-
-    subtotalEl.textContent = `$${subtotal.toFixed(2)}`;
-    taxEl.textContent = `$${tax.toFixed(2)}`;
-    payableAmountEl.textContent = `$${total.toFixed(2)}`;
-  }
-</script>
   <script>
     const products = {
       starters: [
@@ -339,17 +308,16 @@
       breakfast: [
         { name: "Pancakes", price: 10, image: "breakfast1.jpg" },
         { name: "Omelette", price: 8, image: "breakfast2.jpg" }
-      ],
-      // Add more categories and products here
+      ]
     };
 
     const productGrid = document.getElementById("productGrid");
 
     function filterProducts(category) {
       productGrid.innerHTML = "";
-      document.querySelectorAll(".category").forEach((cat) => cat.classList.remove("active"));
+      document.querySelectorAll(".category").forEach(cat => cat.classList.remove("active"));
       document.querySelector(`[onclick="filterProducts('${category}')"]`).classList.add("active");
-      products[category]?.forEach((product) => {
+      products[category]?.forEach(product => {
         productGrid.innerHTML += `
           <div class="product-card">
             <img src="${product.image}" alt="${product.name}" class="product-image">
@@ -360,7 +328,66 @@
       });
     }
 
-    // Initialize with starters
     filterProducts("starters");
+    
   </script>
 
+
+<script>
+    // References to DOM elements
+    const showFormBtn = document.getElementById('showFormBtn');
+    const addItemForm = document.getElementById('addItemForm');
+    const addItemBtn = document.getElementById('addItemBtn');
+    const cartItems = document.getElementById('cartItems');
+    const subtotalEl = document.getElementById('subtotal');
+    const taxEl = document.getElementById('tax');
+    const payableAmountEl = document.getElementById('payableAmount');
+
+    let subtotal = 0;
+    const taxRate = 0.1; // 10% tax
+
+    // Show the Add Item form
+    showFormBtn.addEventListener('click', () => {
+      addItemForm.style.display = addItemForm.style.display === 'block' ? 'none' : 'block';
+    });
+
+    // Add item to the cart
+    addItemBtn.addEventListener('click', () => {
+      const itemName = document.getElementById('itemName').value;
+      const itemPrice = parseFloat(document.getElementById('itemPrice').value);
+
+      if (itemName && itemPrice) {
+        // Create new item element
+        const item = document.createElement('div');
+        item.classList.add('cart-item');
+        item.innerHTML = `
+          ${itemName} - $${itemPrice.toFixed(2)}
+          <button class="remove-btn" onclick="removeItem(this, ${itemPrice})">Remove</button>
+        `;
+        cartItems.appendChild(item);
+
+        // Update subtotal and total
+        subtotal += itemPrice;
+        updateTotal();
+      } else {
+        alert('Please enter both item name and price.');
+      }
+    });
+
+    // Remove item from the cart
+    function removeItem(button, itemPrice) {
+      button.parentElement.remove();
+      subtotal -= itemPrice;
+      updateTotal();
+    }
+
+    // Update subtotal and total
+    function updateTotal() {
+      const tax = subtotal * taxRate;
+      const total = subtotal + tax;
+
+      subtotalEl.textContent = `$${subtotal.toFixed(2)}`;
+      taxEl.textContent = `$${tax.toFixed(2)}`;
+      payableAmountEl.textContent = `$${total.toFixed(2)}`;
+    }
+  </script>

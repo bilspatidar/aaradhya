@@ -388,6 +388,13 @@ public function cities(){
     $this->load->view('master/invoceproduct');
     $this->load->view('includes/footer');
   }
+  public function transfer_stock(){
+    is_login(array('superadmin','admin','branch_admin','field_executive','office_executive'));
+    $header_data['page_title'] = $this->lang->line('transfer_stock');
+    $this->load->view('includes/header',$header_data);
+    $this->load->view('master/transfer_stock');
+    $this->load->view('includes/footer');
+  }
 } 
 ?>
 

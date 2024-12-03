@@ -533,4 +533,19 @@ public function update_status($user_id=''){
         $this->db->where("status", 'Active');
         return $this->db->get()->result();
     }
+    public function get_product_transfer($id='') {
+        $this->db->select('transfer_product.*, products.name as product_name'); // Update the column name if necessary
+        $this->db->from('transfer_product');
+        $this->db->join('products', 'products.id = transfer_product.product_id', 'left'); // Ensure product_id is correct
+    
+        if (!empty($id) && ($id) > 0) {
+            $this->db->where("transfer_product.id", $id); // Filter by transfer_product id
+        }
+        
+        // $this->db->where("status", 'Active'); // If you need this condition, you can uncomment it
+        
+        return $this->db->get()->result(); // Fetch the results
+    }
+    
+    
 }

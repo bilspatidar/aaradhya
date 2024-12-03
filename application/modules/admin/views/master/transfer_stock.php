@@ -67,7 +67,7 @@
   <input type="hidden" value="<?php echo API_DOMAIN; ?>api/product/transfer_stock/" id="delete_end_point">
   <input type="hidden" value="<?php echo API_DOMAIN; ?>api/product/transfer_stock_details" id="show_endpoint">
   <input type="hidden" value="admin/master/transfer_stock_edit" id="edit_page_name">
-  <input type="hidden" value="admin/master/transfer_stock_details_edit" id="permission_page_name">
+  <input type="hidden" value="admin/master/transfer_product_details_edit" id="permission_page_name">
 
   <div class="col-lg-12 grid-margin stretch-card">
     <div class="card">

@@ -144,6 +144,57 @@ class Product_model extends CI_Model {
                }
             } 
 
+            public function received_stock_show($id) {
+                $this->db->select("*");
+                $this->db->from($this->table2);
+                if(!empty($id)) {
+                    $this->db->where($this->primaryKey2, $id);
+                }
+                return $this->db->get()->result();
+            }
+
+
+            public function received_stock_get($isCount = '',$id='',$limit='',$page = '',$filterData='') {
+                
+                $this->db->select("$this->table2.*, branch.name as branch_name, COUNT(transfer_product.id) as transfer_product_count");
+                $this->db->from($this->table2);
+                $this->db->join('branch', "branch.id = $this->table2.branch_id", 'left');
+                $this->db->join('transfer_product', 'transfer_product.stock_transfer_id = ' . $this->table2 . '.id', 'left');
+                
+                $this->db->group_by($this->table2 . '.id'); 
+                
+             
+                
+                        if(!empty($id)) { 
+                            $this->db->where($this->primaryKey2, $id);
+                        }
+                        
+                        if(isset($filterData['branch_id']) && !empty($filterData['branch_id'])){
+                            $this->db->like('branch_id', $filterData['branch_id']);
+                        }
+                    
+                        if(isset($filterData['status']) && !empty($filterData['status'])){
+                            $this->db->where('status', $filterData['status']);
+                        }
+                        
+                        $this->db->order_by($this->primaryKey2, 'desc');
+                        
+                        
+                        if($isCount=='yes'){
+                        $all_res = $this->db->get();
+                        return $all_res->num_rows();
+                            
+                       }
+                       else{
+                        $this->db->limit($limit, $page);
+                        return $this->db->get()->result();
+                       }
+                    } 
+
+
+
+
+
 
         }
 

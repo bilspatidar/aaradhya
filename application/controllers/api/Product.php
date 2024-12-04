@@ -465,6 +465,122 @@ class Product extends REST_Controller {
         }
     }
 
+
+
+
+
+    public function received_stock_list_post() {
+        $input_data = file_get_contents('php://input');
+        $request_data = json_decode($input_data, true);
+    
+        $id = $this->input->get('id') ? $this->input->get('id') : 0;
+    
+        $page = isset($request_data['page']) ? $request_data['page'] : 1; // Default to page 1 if not provided
+        $limit = isset($request_data['limit']) ? $request_data['limit'] : 10; // Default limit to 10 if not provided
+        $filterData = isset($request_data['filterData']) ? $request_data['filterData'] : [];
+    
+        $getTokenData = $this->is_authorized(array('superadmin','branch_admin'));
+        $offset = ($page - 1) * $limit;
+    
+        $totalRecords =  $this->product_model->received_stock_get('yes', $id, $limit, $offset, $filterData);
+       
+        $data =  $this->product_model->received_stock_get('no', $id, $limit, $offset, $filterData);
+    
+        $totalPages = ceil($totalRecords / $limit);
+    
+        $response = [
+            'status' => true,
+            'data' => $data,
+            'pagination' => [
+                'page' => $page,
+                'totalPages' => $totalPages,
+                'totalRecords' => $totalRecords
+            ],
+            'message' => 'Site fetched successfully.'
+        ];
+        $this->response($response, REST_Controller::HTTP_OK); 
+    }
+   
+
+
+    public function received_stock_details_get(){
+        $id = $this->input->get('id') ? $this->input->get('id') : 0;
+        $getTokenData = $this->is_authorized(array('superadmin','branch_admin'));
+        $data =  $this->product_model->received_stock_show($id);
+        $response = [
+            'status' => true,
+            'data' => $data,
+            'message' => 'Site fetched successfully.'
+        ];
+        $this->response($response, REST_Controller::HTTP_OK); 
+    }
+    public function received_stock_post($params='') {
+       
+        if ($params == 'update') {
+            $getTokenData = $this->is_authorized(['superadmin', 'branch_admin']);
+            $usersData = json_decode(json_encode($getTokenData), true);
+            $session_id = $usersData['data']['id'];
+        
+            $_POST = json_decode($this->input->raw_input_stream, true);
+        
+            // Loop through each remark and validate
+            $errors = [];
+            foreach ($_POST['receiver_remark'] as $key => $remark) {
+                if (trim($remark) === '') {
+                    $errors[] = "Remark for product ID $key is required.";
+                }
+            }
+        
+            // Check for validation errors
+            if (!empty($errors)) {
+                $this->response([
+                    'status' => false,
+                    'message' => 'Error in submit form',
+                    'errors' => $errors,
+                ], REST_Controller::HTTP_BAD_REQUEST, '', 'error');
+                return;
+            }
+        
+            // Prepare data for update
+            foreach ($_POST['id'] as $key => $productId) {
+                $data[] = [
+                    'id' => $productId,
+                    'status' => $_POST['status'][$key] ?? '',
+                    'receiver_remark' => $_POST['receiver_remark'][$key] ?? '',
+                    'updated_by' => $session_id,
+                    'updated' => date('Y-m-d H:i:s'),
+                ];
+            }
+        
+            // Perform the update
+            $this->db->trans_start();
+            foreach ($data as $update) {
+                $this->db->where('id', $update['id'])->update('product_table', $update);
+            }
+            $this->db->trans_complete();
+        
+            if ($this->db->trans_status() === false) {
+                $this->response([
+                    'status' => false,
+                    'message' => 'There was a problem updating products. Please try again.',
+                ], REST_Controller::HTTP_BAD_REQUEST, '', 'error');
+            } else {
+                $this->response([
+                    'status' => true,
+                    'message' => 'Products updated successfully.',
+                ], REST_Controller::HTTP_OK);
+            }
+        }
+    }        
+
+   
+
+
+
+
+
+
+
 }
 
 

@@ -192,9 +192,42 @@ class Product_model extends CI_Model {
                     } 
 
 
+                public function update_transfer_product($data, $id) {
+                        $response = $this->db->update('transfer_product', $data, array('id' => $id)); // 'id' is the primary key
+                        return $this->db->affected_rows();
+                    }
+                    
 
-
-
+                    public function transfer_received_stock_get($isCount = '', $id = '', $limit = '', $page = '', $filterData = '') {
+                        // Select all columns from the transfer_product table
+                        $this->db->select('*');
+                        $this->db->from('transfer_product');
+                        
+                        // Apply filters if any
+                        if (!empty($id)) {
+                            $this->db->where('id', $id); // Filter by ID if provided
+                        }
+                    
+                        if (isset($filterData['status']) && !empty($filterData['status'])) {
+                            $this->db->where('status', $filterData['status']); // Filter by status if provided
+                        }
+                    
+                        if (isset($filterData['branch_id']) && !empty($filterData['branch_id'])) {
+                            $this->db->like('branch_id', $filterData['branch_id']); // Filter by branch_id if provided
+                        }
+                    
+                        // If it's for counting rows, return the count
+                        if ($isCount == 'yes') {
+                            $all_res = $this->db->get();
+                            return $all_res->num_rows(); // Return the number of rows
+                        } else {
+                            // Apply pagination: limit the results and return the rows
+                            $this->db->limit($limit, $page);
+                            return $this->db->get()->result(); // Return the result
+                        }
+                    }
+                    
+        
 
         }
 

@@ -55,7 +55,7 @@
                         <ul>
                           
                         <li>
-                        <a href="<?php echo base_url();?>admin/master/transfer_stock" class=""><span><?php echo $this->lang->line('transfer_stock');?></span></a>
+                        <a href="<?php echo base_url();?>admin/master/received_stock" class=""><span><?php echo $this->lang->line('received_stock');?></span></a>
                       
                        </li>
                        <li>

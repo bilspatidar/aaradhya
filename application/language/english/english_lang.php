@@ -84,7 +84,7 @@ $lang['remark'] = 'Remark';
 $lang['total_Product'] = 'Total Product Count';
 $lang['product_details'] = 'Product Details';
 $lang['received_stock'] = 'Received Stock';
-$lang['images'] = 'Images';
+$lang['member_profile'] = 'Member Profile';
 $lang['images'] = 'Images';
 $lang['images'] = 'Images';
 

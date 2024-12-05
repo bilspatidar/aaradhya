@@ -7,6 +7,8 @@ class Product extends REST_Controller {
     public function __construct() {
         $this->cors_header();
         parent::__construct();
+        $this->load->model('Product_model', 'product_modal');
+
         $this->load->model('product_model'); 
         $this->load->helper('security');
     }
@@ -514,64 +516,86 @@ class Product extends REST_Controller {
         ];
         $this->response($response, REST_Controller::HTTP_OK); 
     }
-    public function received_stock_post($params='') {
-       
+ 
+    
+    public function received_stock_post($params = '') {
         if ($params == 'update') {
-            $getTokenData = $this->is_authorized(['superadmin', 'branch_admin']);
+            // Authorization check
+            $getTokenData = $this->is_authorized(array('superadmin', 'branch_admin'));
             $usersData = json_decode(json_encode($getTokenData), true);
             $session_id = $usersData['data']['id'];
         
+            // Handle input
             $_POST = json_decode($this->input->raw_input_stream, true);
         
-            // Loop through each remark and validate
-            $errors = [];
-            foreach ($_POST['receiver_remark'] as $key => $remark) {
-                if (trim($remark) === '') {
-                    $errors[] = "Remark for product ID $key is required.";
-                }
-            }
+            // Validation rules
+            $this->form_validation->set_rules('receiver_remark', 'Receiver Remark', 'trim|required|xss_clean|alpha_numeric_spaces');
+            $this->form_validation->set_rules('remark', 'Remark', 'trim|xss_clean');
         
-            // Check for validation errors
-            if (!empty($errors)) {
+            if ($this->form_validation->run() === false) {
+                // Process validation errors
+                $array_error = array_map(function ($val) {
+                    return str_replace(array("\r", "\n"), '', strip_tags($val));
+                }, array_filter(explode(".", trim(strip_tags(validation_errors())))));
+        
+                // Respond with errors
                 $this->response([
-                    'status' => false,
-                    'message' => 'Error in submit form',
-                    'errors' => $errors,
-                ], REST_Controller::HTTP_BAD_REQUEST, '', 'error');
-                return;
-            }
-        
-            // Prepare data for update
-            foreach ($_POST['id'] as $key => $productId) {
-                $data[] = [
-                    'id' => $productId,
-                    'status' => $_POST['status'][$key] ?? '',
-                    'receiver_remark' => $_POST['receiver_remark'][$key] ?? '',
-                    'updated_by' => $session_id,
-                    'updated' => date('Y-m-d H:i:s'),
-                ];
-            }
-        
-            // Perform the update
-            $this->db->trans_start();
-            foreach ($data as $update) {
-                $this->db->where('id', $update['id'])->update('product_table', $update);
-            }
-            $this->db->trans_complete();
-        
-            if ($this->db->trans_status() === false) {
-                $this->response([
-                    'status' => false,
-                    'message' => 'There was a problem updating products. Please try again.',
+                    'status' => FALSE,
+                    'message' => 'Error in form submission',
+                    'errors' => $array_error
                 ], REST_Controller::HTTP_BAD_REQUEST, '', 'error');
             } else {
-                $this->response([
-                    'status' => true,
-                    'message' => 'Products updated successfully.',
-                ], REST_Controller::HTTP_OK);
+                // Get form data
+                $id = $this->input->post('id', TRUE);
+                $receiver_remark = $this->input->post('receiver_remark', TRUE);
+                $remarks = $this->input->post('remarks', TRUE);
+                $product_id = $this->input->post('product_id', TRUE);
+                $status = $this->input->post('status', TRUE);
+        
+                // Check if all required data is present
+                if (empty($id) || empty($receiver_remark) || empty($status)) {
+                    $this->response([
+                        'status' => FALSE,
+                        'message' => 'Missing required fields.',
+                        'errors' => ['id', 'receiver_remark', 'status']
+                    ], REST_Controller::HTTP_BAD_REQUEST);
+                    return;
+                }
+        
+                // Prepare data for update
+                $data = [
+                    'receiver_remark' => $receiver_remark,
+                    'remarks' => $remarks,
+                    'product_id' => $product_id,
+                    'status' => $status,
+                    'status_by' => $session_id,
+                    'status_date' => date('Y-m-d H:i:s'),
+                ];
+        
+                // Update product data
+                $res = $this->product_modal->update_transfer_product($data, $id);
+        
+                if ($res) {
+                    // Fetch updated product details
+                    $final = [
+                        'status' => true,
+                        'data' => $this->product_modal->transfer_received_stock_get($id),
+                        'message' => 'Product updated successfully.'
+                    ];
+                    $this->response($final, REST_Controller::HTTP_OK);
+                } else {
+                    // Error in updating
+                    $this->response([
+                        'status' => FALSE,
+                        'message' => 'There was a problem updating the product. Please try again.',
+                        'errors' => [$this->db->error()]
+                    ], REST_Controller::HTTP_BAD_REQUEST);
+                }
             }
         }
-    }        
+        
+    }
+    
 
    
 

@@ -71,7 +71,7 @@
       },
       { "data": "name", "orderable": true },
       { "data": "last_name", "orderable": true },
-      { "data": "id", "id": true },
+      { "data": "member_code", "orderable": true },
       { "data": "email", "orderable": true },
       { "data": "mobile", "orderable": true },
 

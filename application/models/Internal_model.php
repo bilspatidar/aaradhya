@@ -514,16 +514,20 @@ public function update_status($user_id=''){
         $this->db->where('status', 'Active');
         return $this->db->get()->result();
     }
-    public function get_branch_member($user_type = '') {
-        $this->db->select('*');
+    public function get_branch_member($user_type = '', $id = '') {
+        $this->db->select('users.*, countries.name as country_name, cities.name as city_name, states.name as state_name');
         $this->db->from('users');
-        $this->db->where('status', 'Active');
-        
-        // Sirf customer ka data dikhana hai
-        $this->db->where('user_type', 'customer');
-        
+        $this->db->join('countries', 'countries.id = users.country_id', 'left');
+        $this->db->join('cities', 'cities.id = users.city_id', 'left');
+        $this->db->join('states', 'states.id = users.state_id', 'left');
+    
+        $this->db->where('users.status', 'Active');
+        $this->db->where('users.user_type', 'customer');
+        $this->db->where('users.id', $id);
+    
         return $this->db->get()->result();
     }
+    
     public function get_product($id='') {
         $this->db->select("*");
         $this->db->from('products');

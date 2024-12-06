@@ -1,7 +1,8 @@
+<?php 
+ $UserDetails = $this->Internal_model->get_branch_member('',$id) ;
 
+ ?>
     <style>
-   
-        
 
         .breadcrumb {
          
@@ -97,7 +98,7 @@
         }
 
         .section-title {
-            color: #03a9f4;
+            color: #ff00d3 !important;
             font-size: 24px;
             margin-bottom: 10px;
         }
@@ -187,7 +188,7 @@
 
     /* Profile Image Styling */
     .profile-img {
-        width: 350px;
+        width: 250px;
         height: 200px;
         object-fit: cover;
         border-radius: 5%;
@@ -202,209 +203,6 @@
         text-align: center;
     }
 </style>
-
-    <div class="container">
-        <!-- Breadcrumb -->
-        <div class="breadcrumb">
-            <a href="/Member/MemberProfile"><b>Member Profile</b></a>
-        </div>
-
-        <!-- Card -->
-        <div class="card">
-            <!-- Tabs -->
-            <div class="tabs">
-                <button class="active" onclick="showTab('personal')">
-                    <span class="icon">📅</span> Personal
-                </button>
-                <button onclick="showTab('kyc-details')">
-                    <span class="icon">📄</span> Document Details
-                </button>
-                <button onclick="showTab('authorize-url')">
-                    <span class="icon">🔑</span> Authorize URL
-                </button>
-                <button onclick="showTab('api-details')">
-                    <span class="icon">⚙️</span> API Details
-                </button>
-            </div>
-
-            <!-- Tab Content -->
-<div id="personal" class="tab-content active">
-         <h3 class="section-title">Personal Info</h3>
-    
-    <!-- Profile Image -->
-    <div style="display: flex; justify-content: center; margin: 20px 0;">
-        <img src="https://centpays.com/uploads/no_file.jpg" alt="Profile" class="profile-img">
-    </div>
-
-    <!-- Personal Info Details -->
-    <div class="personal-info">
-        <p><b>First Name:</b><span class="info-text"> Ranjeet</span></p>
-        <p><b>Last Name:</b><span class="info-text"> Patidar</span></p>
-        <p><b>Skype ID:</b><span class="info-text"> 0</span></p>
-        <p><b>Company Name:</b><span class="info-text"> Microsoft Technology</span></p>
-        <p><b>Email:</b><span class="info-text"> bilspatidar@gmail.com</span></p>
-        <p><b>Phone Number:</b><span class="info-text"> 7000890003</span></p>
-        <p><b>Country:</b><span class="info-text"> India</span></p>
-        <p><b>State:</b><span class="info-text"> Madhya Pradesh</span></p>
-        <p><b>City:</b><span class="info-text"> Mandsaur</span></p>
-        <p><b>Street Address:</b><span class="info-text"> Chavni Indore</span></p>
-    </div>
-</div>
-
-<div id="kyc-details" class="tab-content">
-    <div class="container">
-        <!-- Utility Bill of Business -->
-        <div class="form-section">
-            <h6 class="section-title">Utility Bill of Business</h6>
-            <input type="hidden" name="type_id[]" value="9" />
-            <div class="form-grid">
-                <div class="grid-item">
-                    <label class="checkbox-label">
-                        <input type="checkbox" name="document_id[9][]" value="9" />
-                        Utility Bill
-                    </label>
-                </div>
-                <div class="grid-item">
-                    <input type="file" name="document_file[9][9]" class="file-input" />
-                </div>
-                <div class="grid-item">
-                    <input type="text" name="document_number[9][]" class="text-input" placeholder="Document Number" maxlength="4" />
-                </div>
-                <div class="grid-item">
-                    <label class="checkbox-label">
-                        <input type="checkbox" name="isVerified[9][]" value="1" />
-                        Verified
-                    </label>
-                </div>
-            </div>
-        </div>
-
-        <!-- Director and Shareholder Registry -->
-        <div class="form-section">
-            <h6 class="section-title">Director and Shareholder Registry</h6>
-            <input type="hidden" name="type_id[]" value="10" />
-            <div class="form-grid">
-                <div class="grid-item">
-                    <label class="checkbox-label">
-                        <input type="checkbox" name="document_id[10][]" value="10" />
-                        Registry
-                    </label>
-                </div>
-                <div class="grid-item">
-                    <input type="file" name="document_file[10][10]" class="file-input" />
-                </div>
-                <div class="grid-item">
-                    <input type="text" name="document_number[10][]" class="text-input" placeholder="Document Number" maxlength="5" />
-                </div>
-                <div class="grid-item">
-                    <label class="checkbox-label">
-                        <input type="checkbox" name="isVerified[10][]" value="1" />
-                        Verified
-                    </label>
-                </div>
-            </div>
-        </div>
-
-        <!-- Contact phone number, Business email addresses of all directors and authorised personnel -->
-        <div class="form-section">
-            <h6 class="section-title">Contact phone number, Business email addresses of all directors and authorised personnel</h6>
-            <input type="hidden" name="type_id[]" value="12" />
-            <div class="form-grid">
-                <div class="grid-item">
-                    <label class="checkbox-label">
-                        <input type="checkbox" name="document_id[12][]" value="11" />
-                        Contact and Business email
-                    </label>
-                </div>
-                <div class="grid-item">
-                    <input type="file" name="document_file[12][11]" class="file-input" />
-                </div>
-                <div class="grid-item">
-                    <input type="text" name="document_number[12][]" class="text-input" placeholder="Document Number" maxlength="6" />
-                </div>
-                <div class="grid-item">
-                    <label class="checkbox-label">
-                        <input type="checkbox" name="isVerified[12][]" value="1" />
-                        Verified
-                    </label>
-                </div>
-            </div>
-        </div>
-
-        <!-- Director Passport -->
-        <div class="form-section">
-            <h5 class="section-title">Director Passport</h5>
-            <input type="hidden" name="type_id[]" value="14" />
-            <div class="form-grid">
-                <div class="grid-item">
-                    <label class="checkbox-label">
-                        <input type="checkbox" name="document_id[14][]" value="12" />
-                        Director Passport
-                    </label>
-                </div>
-                <div class="grid-item">
-                    <input type="file" name="document_file[14][12]" class="file-input" />
-                    <input type="file" name="document_file_back[14][12]" class="file-input" />
-                </div>
-                <div class="grid-item">
-                    <input type="text" name="document_number[15][]" class="text-input" placeholder="Document Number" maxlength="1" />
-                </div>
-                <div class="grid-item">
-                    <label class="checkbox-label">
-                        <input type="checkbox" name="isVerified[14][]" value="1" />
-                        Verified
-                    </label>
-                </div>
-            </div>
-        </div>
-
-        <!-- Utility Bill of Director -->
-        <div class="form-section">
-            <h6 class="section-title">Utility Bill of Director</h6>
-            <input type="hidden" name="type_id[]" value="15" />
-            <div class="form-grid">
-                <div class="grid-item">
-                    <label class="checkbox-label">
-                        <input type="checkbox" name="document_id[15][]" value="13" />
-                        Utility Bill
-                    </label>
-                </div>
-                <div class="grid-item">
-                    <input type="file" name="document_file[12][11]" class="file-input" />
-                </div>
-                <div class="grid-item">
-                    <input type="text" name="document_number[15][]" class="text-input" placeholder="Document Number" maxlength="1" />
-                </div>
-                <div class="grid-item">
-                    <label class="checkbox-label">
-                        <input type="checkbox" name="isVerified[15][]" value="1" />
-                        Verified
-                    </label>
-                </div>
-            </div>
-        </div>
-
-        <!-- KYC Status -->
-        <div class="form-section">
-            <div class="form-grid">
-                <div class="grid-item">
-                    <label for="status">KYC Status</label>
-                    <select name="status" id="status" class="select-input select2">
-                        <option value="Success">Success</option>
-                        <option value="Pending">Pending</option>
-                        <option value="Reject">Reject</option>
-                    </select>
-                </div>
-            </div>
-        </div>
-
-        <!-- Submit Button -->
-        <button type="submit" class="submit-btn mt-3">
-                <span class="icon">📤</span> Submit
-            </button>
-    </div>
-</div>
-
 <style>
   .form-section {
     margin-top: 20px;
@@ -460,68 +258,273 @@
 }
 
 </style>
+<div class="container">
+    <!-- Breadcrumb -->
+    <nav class="breadcrumb">
+        <a href="/Member/MemberProfile"><b>Member Profile</b></a>
+    </nav>
 
-           
-
-            <div id="authorize-url" class="tab-content">
-    <div class="tab-panel">
-        <form class="validator-form" data-form-identifier="add_form" onsubmit="return false;">
-            <div class="row">
-                <div class="col-md-12">
-                    <label for="authorize-url" class="form-label">Authorize URL</label>
-                    <input type="text" id="authorize-url" name="authorize-url" class="form-input" required>
-                    <span class="error-message">This field is required</span>
-                </div>
-            </div>
-            
-            <button type="submit" class="submit-btn mt-3">
-                <span class="icon">📤</span> Submit
+    <!-- Card -->
+    <div class="card">
+        <!-- Tabs -->
+        <div class="tabs" role="tablist">
+            <button class="tab-button active" onclick="showTab('personal')" aria-selected="true">
+                <span class="icon">📅</span> Personal
             </button>
-        </form>
-    </div>
-</div>
+            <button class="tab-button" onclick="showTab('document_details')" aria-selected="false">
+                <span class="icon">📄</span> Document Details
+            </button>
+            <button class="tab-button" onclick="showTab('sales')" aria-selected="false">
+                <span class="icon">🔑</span> Sales
+            </button>
+            <button class="tab-button" onclick="showTab('return')" aria-selected="false">
+                <span class="icon">⚙️</span> Return
+            </button>
+            <button class="tab-button" onclick="showTab('Payment-details')" aria-selected="false">
+                <span class="icon">💰</span> Payment
+            </button>
+        </div>
 
-            <div id="api-details" class="tab-content">
-                <h5 class="section-title ">Live Credentials</h5>
-                <div class="row">
-                    <div class="col-md-2">
-                        <label for="live-api" class="form-label"><b>Live API:</b></label>
-                    </div>
-                    <div class="col-md-8">
-                        <input type="text" id="live-api" name="live_api" class="form-input" value="live_$2y$10$Ztzkrh1KGayF5jZN350xEeM2OV/n2hqBJFOSaismDznWxb9mO1B9a" readonly>
-                    </div>
-                    <div class="col-md-2">
-                        <button class="copy-btn" onclick="handleCopyToClipboard('live-api')">Copy</button>
-                    </div>
-                </div>
-
-                <h5 class="section-title mt-3">Test Credentials</h5>
-                <div class="row">
-                    <div class="col-md-2">
-                        <label for="test-api" class="form-label"><b>Test API:</b></label>
-                    </div>
-                    <div class="col-md-8">
-                        <input type="text" id="test-api" name="test_api" class="form-input" value="test_$2y$10$Ztzkrh1KGayF5jZN350xEeM2OV/n2hqBJFOSaismDznWxb9mO1B9a" readonly>
-                    </div>
-                    <div class="col-md-2">
-                        <button class="copy-btn" onclick="handleCopyToClipboard('test-api')">Copy</button>
-                    </div>
-                </div>
-
-               <div class="row">
-  
-        <h5 class="section-title mt-4">Regenerate Test API</h5>
-
-    <div class="col-md-8 mt-3 ml-3">
-        <button class="regenerate-btn" onclick="handleRegenerate()">Regenerate</button>
-    </div>
-</div>
+        <!-- Tab Content -->
+        <div id="personal" class="tab-content active">
+    <h3 class="section-title">Personal Info</h3>
+    <div class="row">
+        <!-- Image Column -->
+        <div class="col-md-4">
+            <div class="center-content">
+                <img src="<?php echo $UserDetails[0]->profile_pic;?>" alt="Profile Picture" class="profile-img">
+            </div>
+        </div>
+        
+        <!-- Personal Info Columns -->
+        <div class="col-md-4">
+            <div class="personal-info">
+                <p><b>First Name:</b> <?php echo $UserDetails[0]->name;?></p>
+                <p><b>Last Name:</b> <?php echo $UserDetails[0]->last_name;?></p>
+                <p><b>Gender :</b> <?php echo $UserDetails[0]->gender;?></p>
+                <p><b>Country:</b> <?php echo $UserDetails[0]->country_name ;?></p>
 
             </div>
         </div>
+        <div class="col-md-4">
+            <div class="personal-info">
+               
+                <p><b>Pincode:</b> <?php echo $UserDetails[0]->zip_code;?></p>
+                <p><b>State:</b> <?php echo $UserDetails[0]->state_name;?></p>
+                <p><b>City:</b> <?php echo $UserDetails[0]->city_name;?></p>
+                <p><b>Address:</b> <?php echo $UserDetails[0]->address;?></p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="personal-info">
+                <p><b>Total Income :</b> <?php echo $UserDetails[0]->total_income;?></p>
+                <p><b>marital Status:</b><?php echo $UserDetails[0]->marital_status;?></p>
+                <p><b>Category:</b> <?php echo $UserDetails[0]->category;?></p>
+                <p><b>Member code:</b> <?php echo $UserDetails[0]->member_code;?></p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="personal-info">
+                <p><b>Email:</b> <?php echo $UserDetails[0]->email;?></p>
+                <p><b>Mobile:</b> <?php echo $UserDetails[0]->mobile;?></p>
+                <p><b>Alt Mobile:</b> <?php echo $UserDetails[0]->alt_mobile;?></p>
+                <p><b>Location:</b> <?php echo $UserDetails[0]->location;?></p>
+               
+            </div>
+        </div>
 
-
+        
     </div>
+</div>
+
+
+
+        <!-- Document Details -->
+        <div id="document_details" class="tab-content">
+    <div class="container">
+        <!-- Utility Bill of Business -->
+        <div class="form-section">
+            <h6 class="section-title">Utility Bill of Business</h6>
+            <input type="hidden" name="type_id[]" value="9" />
+            <div class="form-grid">
+                <div class="grid-item">
+                    <label class="checkbox-label">
+                        <input type="checkbox" name="document_id[9][]" value="9" />
+                        Utility Bill
+                    </label>
+                </div>
+                <div class="grid-item">
+                    <input type="file" name="document_file[9][9]" class="file-input" />
+                </div>
+                <div class="grid-item">
+                    <input type="text" name="document_number[9][]" class="text-input" placeholder="Document Number" maxlength="4" />
+                </div>
+                <div class="grid-item">
+                    <label class="checkbox-label">
+                        <input type="checkbox" name="isVerified[9][]" value="1" />
+                        Verified
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <!-- Director and Shareholder Registry -->
+        <div class="form-section">
+            <h6 class="section-title">Director and Shareholder Registry</h6>
+            <input type="hidden" name="type_id[]" value="10" />
+            <div class="form-grid">
+                <div class="grid-item">
+                    <label class="checkbox-label">
+                        <input type="checkbox" name="document_id[10][]" value="10" />
+                        Registry
+                    </label>
+                </div>
+                <div class="grid-item">
+                    <input type="file" name="document_file[10][10]" class="file-input" />
+                </div>
+                <div class="grid-item">
+                    <input type="text" name="document_number[10][]" class="text-input" placeholder="Document Number" maxlength="5" />
+                </div>
+                <div class="grid-item">
+                    <label class="checkbox-label">
+                        <input type="checkbox" name="isVerified[10][]" value="1" />
+                        Verified
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <!-- KYC Status -->
+        <div class="form-section">
+            <div class="form-grid">
+                <div class="grid-item">
+                    <label for="status">KYC Status</label>
+                    <select name="status" id="status" class="select-input select2">
+                        <option value="Success">Success</option>
+                        <option value="Pending">Pending</option>
+                        <option value="Reject">Reject</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <!-- Submit Button -->
+        <button type="submit" class="submit-btn mt-3">
+            <span class="icon">📤</span> Submit
+        </button>
+    </div>
+</div>
+     <!-- Sales -->
+<div id="sales" class="tab-content">
+     <div class="table-responsive">
+        <table class="table table-hover js-basic-example dataTable table-custom spacing5 ">
+
+            <thead>
+              <tr>
+                
+                <th>Sr No</th>
+                <th>Amount</th>
+                <th>Date</th>
+                <th>Details</th>
+              </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>1</td>
+                <td>₹5000</td>
+                <td>2024-12-01</td>
+                <td>Credit Card</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>₹3000</td>
+                <td>2024-12-02</td>
+                <td>Cash</td>
+            </tr>
+        </tbody>
+          </table>
+        </div>
+ </div>
+
+
+
+        <!-- Return -->
+<div id="return" class="tab-content">
+ <div class="table-responsive">
+        <table class="table table-hover js-basic-example dataTable table-custom spacing5 ">
+
+            <thead>
+              <tr>
+                
+                <th>Sr No</th>
+                <th>Amount</th>
+                <th>Date</th>
+                <th>Payment Mode</th>
+                <th>Details</th>
+              </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>1</td>
+                <td>₹5000</td>
+                <td>2024-12-01</td>
+                <td>Credit Card</td>
+                <td>John Doe</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>₹3000</td>
+                <td>2024-12-02</td>
+                <td>Cash</td>
+                <td>Jane Smith</td>
+            </tr>
+        </tbody>
+          </table>
+        </div>
+ </div>
+
+
+
+
+
+        <!-- Payment Details -->
+        <div id="Payment-details" class="tab-content">
+        <div class="table-responsive">
+        <table class="table table-hover js-basic-example dataTable table-custom spacing5 ">
+
+            <thead>
+              <tr>
+                
+                <th>Sr No</th>
+                <th>Amount</th>
+                <th>Date</th>
+                <th>Payment Mode</th>
+                <th>Details</th>
+              </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>1</td>
+                <td>₹5000</td>
+                <td>2024-12-01</td>
+                <td>Credit Card</td>
+                <td>John Doe</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>₹3000</td>
+                <td>2024-12-02</td>
+                <td>Cash</td>
+                <td>Jane Smith</td>
+            </tr>
+        </tbody>
+          </table>
+        </div>
+ </div>
+        </div>
+    </div>
+</div>
+
 
     <script>
         function showTab(tabName) {

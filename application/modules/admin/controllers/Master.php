@@ -403,11 +403,13 @@ public function cities(){
     $this->load->view('includes/footer');
   }
 
-  public function member_profile(){
+  public function member_profile($id=''){
     is_login(array('superadmin','admin','branch_admin','field_executive','office_executive'));
     $header_data['page_title'] = $this->lang->line('member_profile');
+    $data['id'] = $id;
+
     $this->load->view('includes/header',$header_data);
-    $this->load->view('master/member_profile');
+    $this->load->view('master/member_profile',$data);
     $this->load->view('includes/footer');
   }
 } 

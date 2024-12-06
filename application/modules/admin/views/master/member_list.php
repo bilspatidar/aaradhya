@@ -44,6 +44,7 @@
                 <th><?php echo $this->lang->line('email');?></th>
                 <th><?php echo $this->lang->line('mobile');?></th>
                 <th><?php echo $this->lang->line('status');?></th>
+                <th><?php echo $this->lang->line('profile_details');?></th>
                 <th><?php echo $this->lang->line('Action');?></th>
               </tr>
             </thead>
@@ -70,7 +71,7 @@
       },
       { "data": "name", "orderable": true },
       { "data": "last_name", "orderable": true },
-      { "data": "member_code", "member_code": true },
+      { "data": "id", "id": true },
       { "data": "email", "orderable": true },
       { "data": "mobile", "orderable": true },
 
@@ -81,8 +82,18 @@
           return renderStatusBtn(data, type, row);
         }
       },
-      
-      
+      {
+      "data": null,
+      "orderable": false, 
+      "render": function (data, type, row) {
+        return `
+          <a 
+            href="<?php echo base_url();?>admin/master/member_profile/${row.id}" 
+            class="btn btn-primary btn-sm">
+            View 
+          </a>`;
+      }
+    },
       {
         "data": null,
         "render": function(data, type, row) {
